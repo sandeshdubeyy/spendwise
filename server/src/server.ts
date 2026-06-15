@@ -5,6 +5,7 @@ import User from "./models/User.models";
 
 import connectDB from "./configs/db.configs";
 import authRouter from "./routes/auth.routes";
+import categoryRouter from "./routes/category.routes";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ app.get('/',(req,res)=>{
     res.send("SpendWise API");
 })
 app.use('/api/auth',authRouter)
+app.use('/api/categories',categoryRouter);
 
 const PORT = process.env.PORT
 app.listen(PORT,()=>{
