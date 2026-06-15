@@ -49,6 +49,7 @@ const expenseSchema = new Schema<IExpense>(
         },
         user:{
             type:mongoose.Types.ObjectId,
+            ref: "User",
             required:true,
         },
     },
