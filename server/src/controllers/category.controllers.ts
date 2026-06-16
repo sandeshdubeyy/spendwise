@@ -68,7 +68,7 @@ export const updateCategory = async(
       const {name} = req.body;
       
       const category = await Category.findByIdAndUpdate(
-      req.params.id,
+        req.params.id,
         {name},
         {new: true},
       );
@@ -99,7 +99,7 @@ export const deleteCategory  = async(
     try {
 
       const category = await Category.findByIdAndDelete(
-      req.params.id,
+        req.params.id,
       );
 
       if(!category){

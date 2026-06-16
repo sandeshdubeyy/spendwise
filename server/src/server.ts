@@ -4,8 +4,11 @@ import cors from "cors";
 import User from "./models/User.models";
 
 import connectDB from "./configs/db.configs";
+
+//import routers
 import authRouter from "./routes/auth.routes";
 import categoryRouter from "./routes/category.routes";
+import expenseRouter from "./routes/expense.routes";
 
 dotenv.config();
 
@@ -23,6 +26,7 @@ app.get('/',(req,res)=>{
 })
 app.use('/api/auth',authRouter)
 app.use('/api/categories',categoryRouter);
+app.use('/api/expenses',expenseRouter);
 
 const PORT = process.env.PORT
 app.listen(PORT,()=>{
