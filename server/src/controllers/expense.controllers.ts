@@ -1,6 +1,8 @@
 import { Request,Response } from "express";
 
 import Expense from "../models/Expense.models";
+import { queryObjects } from "node:v8";
+import { Query } from "mongoose";
 
 export const createExpense = async (
     req:Request,
@@ -27,10 +29,27 @@ export const getExpenses = async (
 ) : Promise<void> => {
     try {
         const user = req.query.user as string;
+        const category = req.query.category as string;
+        const type = req.query.type  as string;
+        const paymentMethod = req.query.paymentMethod as string;
 
-        const expenses = await Expense.find({
-            user,
-        }).populate("category").sort({date:-1});
+        const query: any = { user };
+
+        if(category){
+            query.category = category;
+        };
+
+        if(type){
+            query.type = type;
+        };
+
+        if(paymentMethod){
+            query.paymentMethod = paymentMethod;
+        };
+
+        const expenses = await Expense.find(
+            query,
+        ).populate("category").sort({date:-1});
 
         res.status(200).json({
             expenses,
