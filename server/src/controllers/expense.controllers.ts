@@ -1,4 +1,5 @@
 import { Request,Response } from "express";
+import mongoose from "mongoose";
 
 import Expense from "../models/Expense.models";
 import { queryObjects } from "node:v8";
@@ -140,6 +141,135 @@ export const deleteExpense = async (
 
         res.status(200).json({
             message:"Expense deleted successfully",
+        });
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message:"Server Error",
+        })
+    }
+}
+
+export const getTotalIncome = async (
+    req:Request,
+    res:Response,
+) : Promise<void> => {
+    try {
+        const user = req.query.user as string;
+
+        const result = await Expense.aggregate([
+            {
+                $match:{
+                    user: new mongoose.Types.ObjectId(user as string),
+                    type:"income",
+                },
+            },
+            {
+                $group:{
+                    _id:null,
+                    totalIncome:{
+                        $sum:"$amount",
+                    },
+                },
+            },
+        ]);
+
+        res.status(200).json({
+            totalIncome:result[0]?.totalIncome || 0   
+        });
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message:"Server Error",
+        })
+    }
+}
+
+export const getTotalExpense = async (
+    req:Request,
+    res:Response,
+) : Promise<void> => {
+    try {
+        const user = req.query.user as string;
+
+        const result = await Expense.aggregate([
+            {
+                $match:{
+                    user: new mongoose.Types.ObjectId(user as string),
+                    type:"expense",
+                },
+            },
+            {
+                $group:{
+                    _id:null,
+                    totalExpense:{
+                        $sum:"$amount",
+                    },
+                },
+            },
+        ]);
+
+        res.status(200).json({
+            totalExpense:result[0]?.totalExpense || 0   
+        });
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message:"Server Error",
+        })
+    }
+}
+
+export const getCurrentBalance = async (
+    req:Request,
+    res:Response,
+) : Promise<void> => {
+    try {
+        const user = req.query.user as string;
+
+        const result = await Expense.aggregate([
+            {
+                $match:{
+                    user: new mongoose.Types.ObjectId(user as string),
+                },
+            },
+            {
+                $group:{
+                    _id:null,
+
+                    totalIncome:{
+                        $sum:{
+                            $cond:[
+                                {$eq:["$type","income"]},
+                                "$amount",
+                                0,
+                            ]
+                        },
+                    },
+                    
+                    totalExpense:{
+                        $sum:{
+                            $cond:[
+                                {$eq:["$type","expense"]},
+                                "$amount",
+                                0,
+                            ]
+                        }
+                    }
+                },
+            },
+        ]);
+
+        const totalIncome = result[0]?.totalIncome || 0;
+        const totalExpense = result[0]?.totalExpense || 0;
+
+        const currentBalance = totalIncome - totalExpense;
+
+        res.status(200).json({
+            currentBalance,   
         });
     } catch (error) {
         console.log(error);
