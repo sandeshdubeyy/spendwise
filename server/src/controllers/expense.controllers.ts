@@ -279,3 +279,116 @@ export const getCurrentBalance = async (
         })
     }
 }
+
+export const getTransactionCount = async (
+    req:Request,
+    res:Response,
+) : Promise<void> => {
+    try {
+        const user = req.query.user as string
+
+        const count = await Expense.countDocuments({
+            user,
+        })
+
+        res.status(200).json({
+            transactionCount:count,
+        });
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message:"Server Error",
+        })
+    }
+}
+
+export const getDashboardSummary = async (
+    req:Request,
+    res:Response,
+) : Promise<void> => {
+    try {
+        const user = req.query.user as string
+
+        const transactionCount = await Expense.countDocuments({
+            user,
+        })
+
+        const result = await Expense.aggregate([
+            {
+                $match:{
+                    user: new mongoose.Types.ObjectId(user as string),
+                },
+            },
+            {
+                $group:{
+                    _id:null,
+
+                    totalIncome:{
+                        $sum:{
+                            $cond:[
+                                {$eq:["$type","income"]},
+                                "$amount",
+                                0,
+                            ]
+                        },
+                    },
+                    
+                    totalExpense:{
+                        $sum:{
+                            $cond:[
+                                {$eq:["$type","expense"]},
+                                "$amount",
+                                0,
+                            ]
+                        }
+                    }
+                },
+            },
+        ]);
+
+        const totalIncome = result[0]?.totalIncome || 0;
+        const totalExpense = result[0]?.totalExpense || 0;
+
+        const currentBalance = totalIncome - totalExpense;
+
+        res.status(200).json({
+            transactionCount,
+            totalIncome,
+            totalExpense,
+            currentBalance
+        });
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message:"Server Error",
+        })
+    }
+}
+
+export const getRecentTransactions = async (
+    req:Request,
+    res:Response,
+) : Promise<void> => {
+    try {
+        const user = req.query.user as string
+
+        const recent = await Expense.find({
+            user,
+        })
+        .populate("category")
+        .sort({date:-1})
+        .limit(5)
+
+        res.status(200).json({
+            recentTransaction:recent,
+        });
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message:"Server Error",
+        })
+    }
+}
