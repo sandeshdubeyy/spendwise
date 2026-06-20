@@ -392,3 +392,59 @@ export const getRecentTransactions = async (
         })
     }
 }
+
+export const getCategoryWiseSpending = async (
+    req:Request,
+    res:Response,
+) : Promise<void> => {
+    try {
+        const user = req.query.user as string
+
+        const spending = await Expense.aggregate([
+            {
+                $match:{
+                    user: new mongoose.Types.ObjectId(user),
+                    type:"expense",
+                },
+            },
+            {
+                $group:{
+                    _id:"$category",
+                    totalSpent:{
+                        $sum: "$amount",
+                    },
+                },
+            },
+            {
+                $lookup:{
+                    from:"categories",
+                    localField: "_id",
+                    foreignField: "_id",
+                    as: "category",
+                },
+            },
+            {
+                $unwind:"$category",
+            },
+            {
+                $project:{
+                    _id:0,
+                    category:"$category.name",
+                    totalSpent:1,
+                },
+            },
+        ]);
+        
+        console.log(spending);
+        res.status(200).json({
+            spending,
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message:"Server Error",
+        })
+    }
+}

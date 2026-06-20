@@ -3,7 +3,7 @@ import mongoose,{Schema, Document} from "mongoose";
 export interface IExpense extends Document{
     title:string;
     amount:number;
-    category:string;
+    category:mongoose.Types.ObjectId;
     type:"income" | "expense";
     paymentMethod:string;
     date:Date;
@@ -23,7 +23,8 @@ const expenseSchema = new Schema<IExpense>(
             required:true,
         },
         category:{
-            type:String,
+            type:Schema.Types.ObjectId,
+            ref: "Category",
             required:true,
         },
         type:{
