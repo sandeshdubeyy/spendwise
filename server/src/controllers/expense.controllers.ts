@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import Expense from "../models/Expense.models";
 import { queryObjects } from "node:v8";
 import { Query } from "mongoose";
+import Budget from "../models/Budget.models";
 
 export const createExpense = async (
     req:Request,
@@ -33,6 +34,8 @@ export const getExpenses = async (
         const category = req.query.category as string;
         const type = req.query.type  as string;
         const paymentMethod = req.query.paymentMethod as string;
+        const startDate = req.query.startDate as string;
+        const endDate = req.query.endDate as string;
 
         const query: any = { user };
 
@@ -47,6 +50,18 @@ export const getExpenses = async (
         if(paymentMethod){
             query.paymentMethod = paymentMethod;
         };
+
+        if (startDate || endDate) {
+            query.date = {};
+
+            if (startDate) {
+                query.date.$gte = new Date(startDate as string);
+            }
+
+            if (endDate) {
+                query.date.$lte = new Date(endDate as string);
+            }
+        }
 
         const expenses = await Expense.find(
             query,
@@ -438,6 +453,142 @@ export const getCategoryWiseSpending = async (
         console.log(spending);
         res.status(200).json({
             spending,
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message:"Server Error",
+        })
+    }
+}
+
+export const getMonthlySpendingTrend = async (
+    req:Request,
+    res:Response,
+) : Promise<void> => {
+    try {
+        const user = req.query.user as string
+
+        const trend = await Expense.aggregate([
+            {
+                $match:{
+                    user: new mongoose.Types.ObjectId(user),
+                    type:"expense",
+                },
+            },
+            {
+                $group:{
+                    _id:{
+                        year:{$year:"$date"},
+                        month:{$month:"$date"},
+                    },
+                    totalSpent:{
+                        $sum:"$amount",
+                    },
+                },
+            },
+            {
+                $sort:{
+                    "_id.year":1,
+                    "_id.month":1,
+                },
+            },
+            {
+                $project:{
+                    _id:0,
+                    month:{
+                        $concat:[
+                            {$toString:"$_id.year"},
+                            "-",
+                            {$toString:"$_id.month"},
+                        ]
+                    },
+                    totalSpent:1,
+                },
+            },
+        ]);
+
+        res.status(200).json({
+            trend,
+        });
+
+    } catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message:"Server Error",
+        })
+    }
+}
+
+export const getBudgetVsActual = async (
+    req:Request,
+    res:Response,
+) : Promise<void> => {
+    try {
+        const user = req.query.user as string
+        
+        const budgets = await Budget.find({
+            user,
+        }).populate("category");
+        
+        const analytics : Array<Object> = [];
+
+        for(const budget of budgets )
+        {
+            const spent = await Expense.aggregate([
+                {
+                    $match:{
+                        user: new mongoose.Types.ObjectId(user),
+                        category: budget.category._id,
+                        type:"expense",
+
+                        $expr:{
+                            $and:[
+                                {
+                                    $eq:[
+                                        {$month:"$date"},
+                                        budget.month,
+                                    ],
+                                },
+                                {
+                                    $eq: [
+                                        { $year: "$date" },
+                                        budget.year,
+                                    ],
+                                },
+                            ],
+                        },
+                    },
+                },
+                {
+                    $group:{
+                        _id:null,
+                        totalSpent:{
+                            $sum:"$amount",
+                        },
+                    },
+                },
+            ]);
+            const totalSpent=spent[0]?.totalSpent || 0;
+
+            const remaining = budget.amount - totalSpent;
+
+            analytics.push({
+                category:(budget.category as any).name,
+                budget:budget.amount,
+                spent:totalSpent,
+                remaining,
+                status: remaining >= 0 ? "within_budget" : "over_budget",
+                month:budget.month,
+                year:budget.year
+            })
+        }
+        
+        res.status(200).json({
+            analytics,
         });
 
     } catch (error) {

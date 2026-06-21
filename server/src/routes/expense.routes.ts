@@ -1,5 +1,5 @@
 import express from "express";
-import { createExpense, deleteExpense, getCategoryWiseSpending, getCurrentBalance, getDashboardSummary, getExpenseById, getExpenses, getRecentTransactions, getTotalExpense, getTotalIncome, getTransactionCount, updateExpense } from "../controllers/expense.controllers";
+import { createExpense, deleteExpense, getBudgetVsActual, getCategoryWiseSpending, getCurrentBalance, getDashboardSummary, getExpenseById, getExpenses, getMonthlySpendingTrend, getRecentTransactions, getTotalExpense, getTotalIncome, getTransactionCount, updateExpense } from "../controllers/expense.controllers";
 
 
 const expenseRouter = express.Router();
@@ -14,6 +14,8 @@ expenseRouter.get("/transaction-count",getTransactionCount);
 expenseRouter.get("/dashboard-summary",getDashboardSummary);
 expenseRouter.get("/recent-transaction",getRecentTransactions);
 expenseRouter.get("/category-wise-spending",getCategoryWiseSpending);
+expenseRouter.get("/monthly-spending-trend",getMonthlySpendingTrend);
+expenseRouter.get("/budget-vs-actual",getBudgetVsActual);
 
 //dynamic routes
 expenseRouter.get("/:id", getExpenseById);
