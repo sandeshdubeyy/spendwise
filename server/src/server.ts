@@ -9,6 +9,7 @@ import connectDB from "./configs/db.configs";
 import authRouter from "./routes/auth.routes";
 import categoryRouter from "./routes/category.routes";
 import expenseRouter from "./routes/expense.routes";
+import budgetRouter from "./routes/budget.routes";
 
 dotenv.config();
 
@@ -27,6 +28,7 @@ app.get('/',(req,res)=>{
 app.use('/api/auth',authRouter)
 app.use('/api/categories',categoryRouter);
 app.use('/api/expenses',expenseRouter);
+app.use('/api/budgets',budgetRouter);
 
 const PORT = process.env.PORT
 app.listen(PORT,()=>{
