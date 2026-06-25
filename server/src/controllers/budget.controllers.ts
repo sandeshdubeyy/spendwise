@@ -30,7 +30,7 @@ export const createBudget = async (
 			category,
 			amount,
 			month,
-			year,
+			year,	
 			user,
 		});
 
@@ -176,3 +176,31 @@ export const updateBudget = async (
 		});
 	}
 };
+
+export const deleteBudget = async (
+	req:Request,
+	res:Response,
+) : Promise<void> => {
+	try {
+		const budget = await Budget.findByIdAndDelete(
+			req.params.id,
+		);
+
+		if(!budget){
+			res.status(404).json({
+				message:"Budget not found",
+			});
+			return;
+		};
+
+		res.status(200).json({
+			message:"Budget deleted successfully",
+		});
+	} catch (error) {
+		console.log(error);
+
+		res.status(500).json({
+			message:"Server Error",
+		})
+	}
+}
