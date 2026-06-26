@@ -10,6 +10,7 @@ import authRouter from "./routes/auth.routes";
 import categoryRouter from "./routes/category.routes";
 import expenseRouter from "./routes/expense.routes";
 import budgetRouter from "./routes/budget.routes";
+import savingGoalRouter from "./routes/savingGoal.routes";
 
 dotenv.config();
 
@@ -29,6 +30,8 @@ app.use('/api/auth',authRouter)
 app.use('/api/categories',categoryRouter);
 app.use('/api/expenses',expenseRouter);
 app.use('/api/budgets',budgetRouter);
+app.use('/api/saving-goal',savingGoalRouter);
+
 
 const PORT = process.env.PORT
 app.listen(PORT,()=>{
