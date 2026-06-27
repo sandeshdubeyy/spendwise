@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 import SavingsGoal from "../models/SavingsGoal.models";
+import { getCurrentBalance } from "./expense.controllers";
 
 export const createSavingGoal = async (
     req: Request,
@@ -175,6 +176,51 @@ export const deleteSavingsGoal = async (
 
 		res.status(200).json({
 			message: "Savings goal deleted successfully.",
+		});
+	} catch (error) {
+		console.log(error);
+
+		res.status(500).json({
+			message: "Server Error",
+		});
+	}
+};
+
+export const getGoalProgress = async (
+	req: Request,
+	res: Response,
+): Promise<void> => {
+	try {
+		const user = req.query.user as string
+
+		const goals = await SavingsGoal.find({
+			user,
+		})
+
+		const progress = goals.map((goal) => {
+			const remainingAmount = goal.targetAmount - goal.currentAmount;
+
+			const progressPercentage = Math.min(
+				100,
+				Math.round(
+					(goal.currentAmount/goal.targetAmount)*100,
+				),
+			);
+			const status = goal.currentAmount >= goal.targetAmount ? "completed" : "in_progress";
+
+			return {
+				title: goal.title,
+				targetAmoount: goal.targetAmount,
+				currentAmount: goal.currentAmount,
+				remainingAmount,
+				progressPercentage,
+				status,
+				deadline:goal.deadline,
+			};
+		});
+
+		res.status(200).json({
+			progress,
 		});
 	} catch (error) {
 		console.log(error);
