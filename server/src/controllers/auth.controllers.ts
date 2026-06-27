@@ -2,6 +2,7 @@ import { Request,Response } from "express";
 import bcrypt from "bcryptjs";
 
 import User from "../models/User.models";
+import generateToken from "../utils/generateToken.utils";
 
 export const registerUser = async(
     req:Request,
@@ -32,6 +33,58 @@ export const registerUser = async(
         res.status(201).json({
             message:"User created successfully!",
             user:createdUser,
+        });
+    } catch (error) {
+        res.status(500).json({
+            message:"Server error",
+        })
+        console.log(error);
+    }
+}
+
+export const loginUser = async(
+    req:Request,
+    res:Response,
+) : Promise<void> => {
+    try {
+        const {email,password} = req.body;
+    
+        const user = await User.findOne({email}).select("+password");
+
+        if(!user){
+            res.status(401).json({
+                message:"No account found with this email. Please register first.",
+            })
+            return;
+        };
+        console.log(user);
+        console.log("working");
+        console.log(user.password);
+        const isMatch = await bcrypt.compare(
+            password,
+            user.password
+        );
+        console.log("working");
+
+        if(!isMatch){
+            res.status(401).json({
+                message:"Incorrect password. Please try again.",
+            })
+            return;
+        }
+
+        const token= generateToken(
+            user._id.toString()
+        );
+        console.log("working");
+        res.status(201).json({
+            message:"Login successful.",
+            token,
+            user:{
+                _id:user._id,
+                name:user.name,
+                email:user.email,
+            },
         });
     } catch (error) {
         res.status(500).json({
