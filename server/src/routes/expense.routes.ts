@@ -1,12 +1,13 @@
 import express from "express";
 import { createExpense, deleteExpense, getBudgetVsActual, getCategoryWiseSpending, getCurrentBalance, getDashboardSummary, getExpenseById, getExpenses, getMonthlySpendingTrend, getRecentTransactions, getTotalExpense, getTotalIncome, getTransactionCount, updateExpense } from "../controllers/expense.controllers";
+import { authMiddleware } from "../middlewares/auth.middlewares";
 
 
 const expenseRouter = express.Router();
 
 //specific routes
 expenseRouter.post("/",createExpense);
-expenseRouter.get("/",getExpenses);
+expenseRouter.get("/",authMiddleware,getExpenses);
 expenseRouter.get("/total-income",getTotalIncome);
 expenseRouter.get("/total-expense",getTotalExpense);
 expenseRouter.get("/current-balance",getCurrentBalance);
