@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 import SavingsGoal from "../models/SavingsGoal.models";
-import { getCurrentBalance } from "./expense.controllers";
 
 //jwt update done
 //all functions are tested and working 29 june 2026

@@ -2,8 +2,6 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 
 import Expense from "../models/Expense.models";
-import { queryObjects } from "node:v8";
-import { Query } from "mongoose";
 import Budget from "../models/Budget.models";
 
 //jwt update done

@@ -126,7 +126,7 @@ export const updateBudget = async (
 			month,
 			year,
 		} = req.body;
-		console.log(id);
+		
 		const budget = await Budget.findOne({
 			_id: id
 		});
