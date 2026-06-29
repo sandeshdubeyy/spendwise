@@ -8,7 +8,8 @@ export const createSavingGoal = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const { title, targetAmount, currentAmount, deadline, user } = req.body;
+        const { title, targetAmount, currentAmount, deadline} = req.body;
+		const user = req.user.id;
 
         const existingGoal = await SavingsGoal.findOne({
             user,
@@ -47,7 +48,7 @@ export const getSavingsGoals = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const user = req.query.user as string;
+       const user = req.user.id;
 
         const goals = await SavingsGoal.find({
             user,
@@ -191,7 +192,7 @@ export const getGoalProgress = async (
 	res: Response,
 ): Promise<void> => {
 	try {
-		const user = req.query.user as string
+		const user = req.user.id;
 
 		const goals = await SavingsGoal.find({
 			user,

@@ -7,8 +7,8 @@ export const createCategory = async(
     res:Response,
 ) : Promise<void> => {
     try {
-      const {name,user} = req.body;
-
+      const {name} = req.body;
+      const user = req.body.user
       const existingCategory = await Category.findOne({
         name: { $regex: `^${name}$`, $options: "i" },
         user,
@@ -43,7 +43,7 @@ export const getCategory = async(
     res:Response,
 ) : Promise<void> => {
     try {
-      const user = req.query.user as string;
+      const user = req.user.id;
       
       const category = await Category.find({
         user,

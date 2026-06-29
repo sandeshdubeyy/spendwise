@@ -11,7 +11,10 @@ export const createExpense = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const expense = await Expense.create(req.body);
+        const expense = await Expense.create({
+            ...req.body,
+            user: req.user.id,
+        });
 
         res.status(201).json({
             message: "Expense created successfully",
@@ -140,7 +143,7 @@ export const getTotalIncome = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const user = req.query.user as string;
+        const user = req.user.id;;
 
         const result = await Expense.aggregate([
             {
@@ -176,7 +179,7 @@ export const getTotalExpense = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const user = req.query.user as string;
+        const user = req.user.id;;
 
         const result = await Expense.aggregate([
             {
@@ -212,7 +215,7 @@ export const getCurrentBalance = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const user = req.query.user as string;
+        const user = req.user.id;;
 
         const result = await Expense.aggregate([
             {
@@ -269,7 +272,7 @@ export const getTransactionCount = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const user = req.query.user as string;
+        const user = req.user.id;;
 
         const count = await Expense.countDocuments({
             user,
@@ -292,7 +295,7 @@ export const getDashboardSummary = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const user = req.query.user as string;
+        const user = req.user.id;;
 
         const transactionCount = await Expense.countDocuments({
             user,
@@ -356,7 +359,7 @@ export const getRecentTransactions = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const user = req.query.user as string;
+        const user = req.user.id;;
 
         const recent = await Expense.find({
             user,
@@ -382,7 +385,7 @@ export const getCategoryWiseSpending = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const user = req.query.user as string;
+        const user = req.user.id;;
 
         const spending = await Expense.aggregate([
             {
@@ -438,7 +441,7 @@ export const getMonthlySpendingTrend = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const user = req.query.user as string;
+        const user = req.user.id;;
 
         const trend = await Expense.aggregate([
             {
@@ -497,7 +500,7 @@ export const getBudgetVsActual = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const user = req.query.user as string;
+        const user = req.user.id;;
 
         const budgets = await Budget.find({
             user,

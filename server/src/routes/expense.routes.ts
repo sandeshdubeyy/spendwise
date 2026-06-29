@@ -5,9 +5,12 @@ import { authMiddleware } from "../middlewares/auth.middlewares";
 
 const expenseRouter = express.Router();
 
+//middleware
+expenseRouter.use(authMiddleware);
+
 //specific routes
 expenseRouter.post("/",createExpense);
-expenseRouter.get("/",authMiddleware,getExpenses);
+expenseRouter.get("/",getExpenses);
 expenseRouter.get("/total-income",getTotalIncome);
 expenseRouter.get("/total-expense",getTotalExpense);
 expenseRouter.get("/current-balance",getCurrentBalance);

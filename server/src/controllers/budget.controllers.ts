@@ -9,9 +9,9 @@ export const createBudget = async (
 ): Promise<void> => {
 	try {
 		const {
-			category, amount, month, year, user,
+			category, amount, month, year
 		} = req.body;
-
+		const user = req.user.id;
 		const existingBudget = await Budget.findOne({
 			user,
 			category,
@@ -52,7 +52,7 @@ export const getBudgets = async (
     res:Response,
 ) : Promise<void> => {
     try {
-        const user = req.query.user as string;
+        const user = req.user.id;
         const month = req.query.month as string;
         const year = req.query.year  as string;
 

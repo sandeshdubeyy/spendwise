@@ -57,14 +57,11 @@ export const loginUser = async(
             })
             return;
         };
-        console.log(user);
-        console.log("working");
-        console.log(user.password);
+        
         const isMatch = await bcrypt.compare(
             password,
             user.password
         );
-        console.log("working");
 
         if(!isMatch){
             res.status(401).json({
@@ -76,7 +73,7 @@ export const loginUser = async(
         const token= generateToken(
             user._id.toString()
         );
-        console.log("working");
+
         res.status(201).json({
             message:"Login successful.",
             token,
