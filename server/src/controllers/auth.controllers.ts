@@ -92,3 +92,134 @@ export const loginUser = async(
         console.log(error);
     }
 }
+
+export const getCurrentUser = async (
+	req: Request,
+	res: Response,
+): Promise<void> => {
+	try {
+		const user = await User.findById(
+			req.user.id,
+		).select("-password");
+
+		if (!user) {
+			res.status(404).json({
+				message: "User not found.",
+			});
+			return;
+		}
+
+		res.status(200).json({
+			user,
+		});
+	} catch (error) {
+		console.log(error);
+
+		res.status(500).json({
+			message: "Server Error",
+		});
+	}
+};
+
+export const updateProfile = async (
+	req: Request,
+	res: Response,
+): Promise<void> => {
+	try {
+		const { name, email } = req.body;
+
+		const user = await User.findById(req.user.id);
+
+		if (!user) {
+			res.status(404).json({
+				message: "User not found.",
+			});
+			return;
+		}
+
+		if (email && email !== user.email) {
+			const existingUser = await User.findOne({
+				email,
+			});
+
+			if (existingUser) {
+				res.status(400).json({
+					message: "Email is already in use.",
+				});
+				return;
+			}
+		}
+
+		user.name = name || user.name;
+		user.email = email || user.email;
+
+		await user.save();
+
+		res.status(200).json({
+			message: "Profile updated successfully.",
+			user: {
+				_id: user._id,
+				name: user.name,
+				email: user.email,
+			},
+		});
+	} catch (error) {
+		console.log(error);
+
+		res.status(500).json({
+			message: "Server Error",
+		});
+	}
+};
+
+export const changePassword = async (
+	req: Request,
+	res: Response,
+): Promise<void> => {
+	try {
+		const {
+			currentPassword,
+			newPassword,
+		} = req.body;
+
+		const user = await User.findById(req.user.id).select("+password");
+
+		if (!user) {
+			res.status(404).json({
+				message: "User not found.",
+			});
+			return;
+		}
+
+		const isMatch = await bcrypt.compare(
+			currentPassword,
+			user.password,
+		);
+
+		if (!isMatch) {
+			res.status(401).json({
+				message: "Current password is incorrect.",
+			});
+			return;
+		}
+
+		const hashedPassword = await bcrypt.hash(
+			newPassword,
+			10,
+		);
+
+		user.password = hashedPassword;
+
+		await user.save();
+
+		res.status(200).json({
+			message: "Password changed successfully.",
+		});
+	} catch (error) {
+		console.log(error);
+
+		res.status(500).json({
+			message: "Server Error",
+		});
+	}
+};
