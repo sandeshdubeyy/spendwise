@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
 
+////jwt update done on 29 june 2026
 export const authMiddleware = (
     req:Request,
     res:Response,
@@ -25,7 +26,6 @@ export const authMiddleware = (
         req.user = decoded as {
             id: string,
         };
-        console.log(req.user);
 
         next();
     } catch (error) {

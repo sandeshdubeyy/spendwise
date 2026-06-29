@@ -2,6 +2,9 @@ import { Request,Response } from "express";
 
 import Category from "../models/Category.models";
 
+//jwt update done
+//all functions are tested and working 29 june 2026
+
 export const createCategory = async(
     req:Request,
     res:Response,

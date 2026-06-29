@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 
 import Budget from "../models/Budget.models";
 
+//jwt update done
+//all functions are tested and working 29 june 2026
+
 export const createBudget = async (
 	req: Request,
 	res: Response
@@ -123,11 +126,11 @@ export const updateBudget = async (
 			month,
 			year,
 		} = req.body;
-
+		console.log(id);
 		const budget = await Budget.findOne({
-			id
+			_id: id
 		});
-
+		console.log(budget);
 		if (!budget) {
 			res.status(404).json({
 				message: "Budget not found.",

@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import SavingsGoal from "../models/SavingsGoal.models";
 import { getCurrentBalance } from "./expense.controllers";
 
+//jwt update done
+//all functions are tested and working 29 june 2026
+
 export const createSavingGoal = async (
     req: Request,
     res: Response,
@@ -197,7 +200,7 @@ export const getGoalProgress = async (
 		const goals = await SavingsGoal.find({
 			user,
 		})
-
+		console.log("working");
 		const progress = goals.map((goal) => {
 			const remainingAmount = goal.targetAmount - goal.currentAmount;
 
@@ -208,6 +211,7 @@ export const getGoalProgress = async (
 				),
 			);
 			const status = goal.currentAmount >= goal.targetAmount ? "completed" : "in_progress";
+			console.log("working");
 
 			return {
 				title: goal.title,

@@ -4,6 +4,8 @@ import bcrypt from "bcryptjs";
 import User from "../models/User.models";
 import generateToken from "../utils/generateToken.utils";
 
+//all functions are tested and working 29 june 2026
+
 export const registerUser = async(
     req:Request,
     res:Response,
