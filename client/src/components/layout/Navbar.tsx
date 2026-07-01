@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
-import { Menu, Moon} from "lucide-react";
+import { Sun, Menu, Moon } from "lucide-react";
 import logo from "../../assets/images/spendwise-logo.png";
+
+import { useTheme } from "../../context/Theme.context";
 
 import MobileDrawer from "./MobileDrawer";
 
@@ -8,6 +10,7 @@ import { useState } from "react";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const { theme, toggleTheme } = useTheme();
 
     return (
         <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-md">
@@ -28,10 +31,24 @@ const Navbar = () => {
                     <Link to="/login" className="text-sm font-medium text-slate-600 transition-colors duration-200 hover:text-blue-600">Login</Link>
 
                     <Link to="/register" className="rounded-lg bg-blue-600 px-5 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-blue-700">Get started</Link>
+
+                    <button
+                        onClick={toggleTheme}
+                        className="rounded-lg p-2 transition-colors duration-200 hover:bg-slate-100"
+                    >
+                        {theme === "dark"
+                            ? <Sun size={22} />
+                            : <Moon size={22} />}
+                    </button>
                 </div>
                 <div className="flex items-center gap-4 md:hidden">
-                    <button className="rounded-lg p-2 transition-colors hover:bg-slate-100">
-                        <Moon size={22} />
+                    <button
+                        onClick={toggleTheme}
+                        className="rounded-lg p-2 transition-colors duration-200 hover:bg-slate-100"
+                    >
+                        {theme === "dark"
+                            ? <Sun size={22} />
+                            : <Moon size={22} />}
                     </button>
 
                     <button onClick={() => setIsOpen(true)}
@@ -40,10 +57,10 @@ const Navbar = () => {
                     </button>
                 </div>
             </nav>
-            	<MobileDrawer
-		isOpen={isOpen}
-		setIsOpen={setIsOpen}
-	/>
+            <MobileDrawer
+                isOpen={isOpen}
+                setIsOpen={setIsOpen}
+            />
         </header>
     );
 };
