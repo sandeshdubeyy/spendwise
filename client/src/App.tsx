@@ -1,7 +1,9 @@
+import Navbar from "./components/layout/Navbar";
+
 function App() {
   return (
     <>
-      <h1>SpendWise</h1>
+      <Navbar />
     </>
   );
 }

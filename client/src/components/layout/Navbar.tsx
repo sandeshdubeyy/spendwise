@@ -1,0 +1,51 @@
+import { Link } from "react-router-dom";
+import { Menu, Moon} from "lucide-react";
+import logo from "../../assets/images/spendwise-logo.png";
+
+import MobileDrawer from "./MobileDrawer";
+
+import { useState } from "react";
+
+const Navbar = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/80 backdrop-blur-md">
+            <nav className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6 lg:px-8">
+                <div className="flex items-center gap-2">
+                    <Link to="/" className="flex items-center gap-3">
+                        <img
+                            src={logo}
+                            alt="SpendWise Logo"
+                            className="h-10 w-auto" />
+                    </Link>
+                </div>
+                <div className="hidden items-center gap-8 md:flex">
+                    <Link to="/" className="text-sm font-medium text-slate-600 transition-colors duration-200 hover:text-blue-600">Features</Link>
+
+                    <Link to="/" className="text-sm font-medium text-slate-600 transition-colors duration-200 hover:text-blue-600">About</Link>
+
+                    <Link to="/login" className="text-sm font-medium text-slate-600 transition-colors duration-200 hover:text-blue-600">Login</Link>
+
+                    <Link to="/register" className="rounded-lg bg-blue-600 px-5 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-blue-700">Get started</Link>
+                </div>
+                <div className="flex items-center gap-4 md:hidden">
+                    <button className="rounded-lg p-2 transition-colors hover:bg-slate-100">
+                        <Moon size={22} />
+                    </button>
+
+                    <button onClick={() => setIsOpen(true)}
+                        className="rounded-lg p-2 transition-colors duration-200 hover:bg-slate-100">
+                        <Menu size={22} />
+                    </button>
+                </div>
+            </nav>
+            	<MobileDrawer
+		isOpen={isOpen}
+		setIsOpen={setIsOpen}
+	/>
+        </header>
+    );
+};
+
+export default Navbar;
