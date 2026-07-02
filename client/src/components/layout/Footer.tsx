@@ -58,17 +58,17 @@ const Footer = () => {
 
 					<div>
 						<h3 className={cn("mb-4 text-sm font-semibold", COLORS.textPrimary)}>
-							Account
+							Conatct me
 						</h3>
 						<ul className="space-y-3 text-sm">
 							<li>
-								<Link to={ROUTES.LOGIN} className={COLORS.textSecondary}>
-									Sign in
+								<Link to={ROUTES.LINKEDIN} className={COLORS.textSecondary}>
+									Linkedin
 								</Link>
 							</li>
 							<li>
-								<Link to={ROUTES.REGISTER} className={COLORS.textSecondary}>
-									Create account
+								<Link to={ROUTES.GITHUB} className={COLORS.textSecondary}>
+									Github
 								</Link>
 							</li>
 						</ul>

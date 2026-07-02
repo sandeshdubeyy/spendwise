@@ -24,7 +24,7 @@ const MobileDrawer = ({ isOpen, setIsOpen }: MobileDrawerProps) => {
             <div
                 className={cn(
                     "fixed top-0 right-0 z-[999] h-screen w-72 overflow-y-auto bg-white shadow-xl transition-transform duration-300 md:hidden",
-                    "dark:bg-[#132d4a]",
+                    "dark:bg-[#071126]",
                     isOpen ? "translate-x-0" : "translate-x-full"
                 )}
             >

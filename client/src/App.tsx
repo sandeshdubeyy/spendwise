@@ -1,11 +1,12 @@
-import Navbar from "./components/layout/Navbar";
+import PublicLayout from "./layouts/Public.layouts";
+import Landing from "./pages/public/Landing/Landing";
 
 function App() {
-  return (
-    <>
-      <Navbar />
-    </>
-  );
+    return (
+        <PublicLayout>
+            <Landing />
+        </PublicLayout>
+    );
 }
 
 export default App;
