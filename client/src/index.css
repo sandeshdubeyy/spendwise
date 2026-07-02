@@ -1,9 +1,32 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme {
+	/* Brand — from SpendWise logo */
+	--color-brand-blue: #1e3a8a;
+	--color-brand-blue-dark: #0b1f3a;
+	--color-brand-green: #16a34a;
+	--color-brand-green-light: #dcfce7;
+	--color-brand-orange: #f97316;
+
+	/* Semantic */
+	--color-primary: #16a34a;
+	--color-primary-dark: #2563eb;
+	--color-success: #16a34a;
+	--color-danger: #dc2626;
+	--color-warning: #ca8a04;
+
+	--color-bg-light: #ffffff;
+	--color-bg-dark: #0b1f3a;
+	--color-card-dark: #132d4a;
+}
+
 html,
 body,
 #root {
 	overflow-x: hidden;
 }
 
+body {
+	@apply bg-white text-slate-900 antialiased dark:bg-[#0b1f3a] dark:text-white;
+}
