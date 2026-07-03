@@ -4,11 +4,18 @@ import Container from "./Container";
 import { cn } from "../../utils/cn";
 import { COLORS } from "../../constants/colors";
 import { ROUTES } from "../../constants/routes";
+import {
+	BackgroundGlowBlueBottomToTop,
+	BackgroundGlowGreenBottomToTop,
+} from "../common/BackgroundGlow";
 
 const Footer = () => {
 	return (
-		<footer className={cn("border-t", COLORS.cardBorder, COLORS.pageBg)}>
-			<Container className="py-12">
+		<footer className={cn("relative overflow-hidden border-t", COLORS.cardBorder, COLORS.pageBg)}>
+			<BackgroundGlowGreenBottomToTop className="left-1/2 bottom-[-8rem] h-[18rem] w-[70%] opacity-70" />
+			<BackgroundGlowBlueBottomToTop className="left-1/2 bottom-[-6rem] h-[14rem] w-[64%] opacity-50" />
+
+			<Container className="relative z-10 py-12">
 				<div className="grid gap-10 md:grid-cols-4">
 					<div className="space-y-4">
 						<Link to={ROUTES.HOME} className="inline-flex items-center gap-3">

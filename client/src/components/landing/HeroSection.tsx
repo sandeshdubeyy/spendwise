@@ -6,14 +6,21 @@ import Button from "../common/Button";
 import { cn } from "../../utils/cn";
 import { COLORS } from "../../constants/colors";
 import { ROUTES } from "../../constants/routes";
+import {
+    BackgroundGlowBlueTopToBottom,
+    BackgroundGlowGreenTopToBottom,
+} from "../common/BackgroundGlow";
 
 // import laptopMockup from "../../assets/images/laptop-mockup.png";
 // import mobileMockup from "../../assets/images/mobile-mockup.png";
 
 const HeroSection = () => {
     return (
-        <Section className={cn("pt-12 md:pt-20", COLORS.heroBg)}>
-            <Container>
+        <Section className={cn("relative overflow-hidden pt-12 md:pt-20", COLORS.heroBg)}>
+            <BackgroundGlowGreenTopToBottom className="left-1/2 top-[-6rem] h-[20rem] w-[80%] opacity-80" />
+            <BackgroundGlowBlueTopToBottom className="left-1/2 top-[-4rem] h-[16rem] w-[72%] opacity-60" />
+
+            <Container className="relative z-10">
                 <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
                     <div className="space-y-6">
                         <p className={cn("text-sm font-semibold uppercase tracking-[0.3em]", COLORS.income)}>
@@ -48,7 +55,6 @@ const HeroSection = () => {
                                 COLORS.mockupBg
                             )}
                         >
-                            {/* Replace this placeholder with your laptop screenshot */}
                             <div className="flex h-full items-center justify-center">
                                 <p className={cn("text-sm", COLORS.textMuted)}>
                                     Laptop mockup — drop image here
@@ -63,7 +69,6 @@ const HeroSection = () => {
                                 COLORS.cardBg
                             )}
                         >
-                            {/* Replace this placeholder with your mobile screenshot */}
                             <div className="flex h-full items-center justify-center px-2 text-center text-xs">
                                 <p className={COLORS.textMuted}>Mobile mockup</p>
                             </div>
