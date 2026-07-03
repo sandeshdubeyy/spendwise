@@ -37,12 +37,6 @@ const HeroSection = () => {
                                     <ArrowRight size={18} />
                                 </Button>
                             </Link>
-
-                            <Link to={ROUTES.HOME}>
-                                <Button variant="outline" size="lg">
-                                    View demo
-                                </Button>
-                            </Link>
                         </div>
                     </div>
 
