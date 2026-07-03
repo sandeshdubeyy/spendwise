@@ -73,7 +73,7 @@ const ProcessSection = () => {
                                                 <h3 className={cn("text-2xl font-semibold", COLORS.textPrimary)}>
                                                     {item.title}
                                                 </h3>
-                                                <p className={cn("text-sm leading-7", COLORS.textSecondary)}>
+                                                <p className={cn("text-sm leading-7 w-110", COLORS.textSecondary)}>
                                                     {item.description}
                                                 </p>
                                             </div>
@@ -124,7 +124,7 @@ const ProcessSection = () => {
                                                 <h3 className={cn("text-2xl font-semibold", COLORS.textPrimary)}>
                                                     {item.title}
                                                 </h3>
-                                                <p className={cn("text-sm leading-7", COLORS.textSecondary)}>
+                                                <p className={cn("text-sm leading-7 w-100", COLORS.textSecondary)}>
                                                     {item.description}
                                                 </p>
                                             </div>
