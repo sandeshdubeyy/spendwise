@@ -1,12 +1,7 @@
-import PublicLayout from "./layouts/Public.layouts";
-import Landing from "./pages/public/Landing/Landing";
+import AppRoutes from "./routes/App.routes";
 
 function App() {
-    return (
-        <PublicLayout>
-            <Landing />
-        </PublicLayout>
-    );
+    return <AppRoutes />;
 }
 
 export default App;
