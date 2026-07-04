@@ -24,9 +24,10 @@
 html,
 body,
 #root {
-	overflow-x: hidden;
+	scroll-behavior: smooth;
 }
 
 body {
 	@apply bg-white text-slate-900 antialiased dark:bg-[#0b1f3a] dark:text-white;
 }
+

@@ -3,7 +3,10 @@ import { COLORS } from "../../constants/colors";
 
 const UpcomingFeatures = () => {
     return (
-        <section className={cn("relative overflow-hidden py-16 md:py-24", COLORS.pageBg)}>
+        <section
+            id="upcoming-features"
+            className={cn("relative scroll-mt-24 overflow-hidden py-16 md:py-24", COLORS.pageBg)}
+        >
             {/* Decorative shapes */}
             <div
                 aria-hidden="true"
