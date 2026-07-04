@@ -3,6 +3,7 @@ import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import { COLORS } from "../constants/colors";
 import { cn } from "../utils/cn";
+import Register from "../pages/public/Register/Register";
 
 interface PublicLayoutProps {
 	children: ReactNode;
@@ -13,7 +14,7 @@ const PublicLayout = ({ children }: PublicLayoutProps) => {
 		<div className={cn("min-h-screen", COLORS.pageBg)}>
 			<Navbar />
 			<main>{children}</main>
-			<Footer />
+			{!(children==<Register/>) ? <></> : <Footer/>}
 		</div>
 	);
 };
