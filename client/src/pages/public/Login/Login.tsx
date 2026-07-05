@@ -10,20 +10,20 @@ import { cn } from "../../../utils/cn";
 import { COLORS } from "../../../constants/colors";
 import { ROUTES } from "../../../constants/routes";
 
-type RegisterFormValues = {
+type LoginFormValues = {
     name: string;
     password: string;
     email: string;
 };
 
-const Register = () => {
+const Login = () => {
     const [showPassword, setShowPassword] = useState(false);
 
     const {
         register,
         handleSubmit,
         formState: { errors, isSubmitting },
-    } = useForm<RegisterFormValues>({
+    } = useForm<LoginFormValues>({
         defaultValues: {
             name: "",
             email: "",
@@ -31,8 +31,8 @@ const Register = () => {
         },
     });
 
-    const onSubmit = async (data: RegisterFormValues) => {
-        console.log("Register payload:", data);
+    const onSubmit = async (data: LoginFormValues) => {
+        console.log("Login payload:", data);
         // API badme dalunga
     };
 
@@ -42,18 +42,23 @@ const Register = () => {
                 <div className="grid w-full overflow-hidden rounded-[32px] border shadow-[0_30px_80px_-35px_rgba(0,0,0,0.35)] lg:grid-cols-[1.05fr_0.95fr]">
                     <div className="flex items-center justify-center bg-white/90 px-6 py-10 sm:px-8 lg:px-12 dark:bg-slate-950/90">
                         <div className="w-full max-w-md">
-                            <div className="mb-8 flex-col">
+                            <div className="mb-7 flex-col">
                                 <p className={cn("text-sm font-semibold uppercase tracking-[0.3em] flex justify-center", COLORS.income)}>
-                                    Create account
+                                    Login into your account
                                 </p>
-                                <h1 className={cn("mt-3 text-3xl font-bold sm:text-4xl", COLORS.textBrand)}>
-                                    Get started with SpendWise
-                                </h1>
-                                <p className={cn("mt-3 text-sm leading-7", COLORS.textSecondary)}>
-                                    Create your account and start tracking money with clarity.
+                                <p className={cn("mt-4 text-1xl font-bold sm:text-2xl flex", COLORS.textBrand)}>
+                                    Dont have an account?
+                                    <Link to="/register" className={cn(
+                                        "rounded-lg px-5 py-2 text-sm font-medium text-white transition-colors duration-200 ml-2",
+                                        COLORS.primaryBtn
+                                    )}>
+                                        Register now!
+                                    </Link>
+                                </p>
+                                <p className={cn("mt-1 text-sm leading-7", COLORS.textSecondary)}>
+                                    Enter your credentials to login.
                                 </p>
                             </div>
-
                             <Card className="border-none bg-transparent rounded-none p-0 shadow-none w-100">
                                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 dark:bg-slate-950/90">
                                     <Input
@@ -116,30 +121,6 @@ const Register = () => {
                                     </Button>
                                 </form>
                             </Card>
-
-                            <p className={cn("mt-6 text-sm", COLORS.textSecondary)}>
-                                Already have an account?{" "}
-                                <Link to={ROUTES.LOGIN} className={cn("font-semibold", COLORS.link)}>
-                                    Log in
-                                </Link>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div className="relative hidden min-h-[420px] items-center justify-center overflow-hidden bg-slate-100 p-4 lg:flex dark:bg-slate-900">
-                        <div className="absolute inset-0 rounded-[32px] b" />
-                        <div className="relative z-10 flex h-full w-full items-center justify-center rounded-[24px] border border-dashed border-slate-300 bg-white/60 p-6 text-center shadow-inner dark:border-slate-700 dark:bg-slate-800/60">
-                            <div className="max-w-sm">
-                                <p className={cn("text-sm font-semibold uppercase tracking-[0.3em]", COLORS.income)}>
-                                    Your finance hub
-                                </p>
-                                <h2 className={cn("mt-3 text-2xl font-semibold", COLORS.textBrand)}>
-                                    A clean place to manage budgets, expenses, and goals.
-                                </h2>
-                                <p className={cn("mt-3 text-sm leading-7", COLORS.textSecondary)}>
-                                    Add your own image here later. This space is intentionally left for your screenshot or mockup.
-                                </p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -148,4 +129,5 @@ const Register = () => {
     );
 };
 
-export default Register;
+export default Login;
+

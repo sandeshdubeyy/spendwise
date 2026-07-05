@@ -3,6 +3,7 @@ import PublicLayout from "../layouts/Public.layouts";
 import Landing from "../pages/public/Landing/Landing";
 import Register from "../pages/public/Register/Register";
 import { ROUTES } from "../constants/routes";
+import Login from "../pages/public/Login/Login";
 
 const AppRoutes = () => {
     return (
@@ -21,6 +22,15 @@ const AppRoutes = () => {
                 element={
                     <PublicLayout>
                         <Register />
+                    </PublicLayout>
+                }
+            />
+
+            <Route
+                path={ROUTES.LOGIN}
+                element={
+                    <PublicLayout>
+                        <Login />
                     </PublicLayout>
                 }
             />
