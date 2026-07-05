@@ -62,20 +62,6 @@ const Login = () => {
                             <Card className="border-none bg-transparent rounded-none p-0 shadow-none w-100">
                                 <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 dark:bg-slate-950/90">
                                     <Input
-                                        label="Full name"
-                                        placeholder="Enter your full name"
-                                        className="border-1"
-                                        {...register("name", {
-                                            required: "Name is required",
-                                            minLength: {
-                                                value: 2,
-                                                message: "Name must be at least 2 characters",
-                                            },
-                                        })}
-                                        error={errors.name?.message}
-                                    />
-
-                                    <Input
                                         label="Email"
                                         type="email"
                                         placeholder="Enter your email"
@@ -89,7 +75,7 @@ const Login = () => {
                                         })}
                                         error={errors.email?.message}
                                     />
-
+                                    
                                     <div className="relative">
                                         <Input
                                             label="Password"

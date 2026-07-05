@@ -20,7 +20,7 @@ const AppRoutes = () => {
             <Route
                 path={ROUTES.REGISTER}
                 element={
-                    <PublicLayout>
+                    <PublicLayout hideFooter>
                         <Register />
                     </PublicLayout>
                 }
@@ -29,7 +29,7 @@ const AppRoutes = () => {
             <Route
                 path={ROUTES.LOGIN}
                 element={
-                    <PublicLayout>
+                    <PublicLayout hideFooter>
                         <Login />
                     </PublicLayout>
                 }
