@@ -4,10 +4,12 @@ import Landing from "../pages/public/Landing/Landing";
 import Register from "../pages/public/Register/Register";
 import { ROUTES } from "../constants/routes";
 import Login from "../pages/public/Login/Login";
+import DashboardLayout from "../layouts/Dashboard.layouts";
 
 const AppRoutes = () => {
     return (
         <Routes>
+            {/* public routes */}
             <Route
                 path={ROUTES.HOME}
                 element={
@@ -34,8 +36,18 @@ const AppRoutes = () => {
                     </PublicLayout>
                 }
             />
-
+            
             <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
+
+            
+            {/* protected routes */}
+            <Route
+                path={ROUTES.DASHBOARD}
+                element={
+                    <DashboardLayout/>
+                }
+            />
+
         </Routes>
     );
 };

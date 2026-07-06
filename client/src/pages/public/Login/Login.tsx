@@ -25,7 +25,6 @@ const Login = () => {
         formState: { errors, isSubmitting },
     } = useForm<LoginFormValues>({
         defaultValues: {
-            name: "",
             email: "",
             password: "",
         },
@@ -49,7 +48,7 @@ const Login = () => {
                                 <p className={cn("mt-4 text-1xl font-bold sm:text-2xl flex", COLORS.textBrand)}>
                                     Dont have an account?
                                     <Link to="/register" className={cn(
-                                        "rounded-lg px-5 py-2 text-sm font-medium text-white transition-colors duration-200 ml-2",
+                                        "rounded-lg px-5 py-2 text-sm font-medium text-white transition-colors duration-200 ml-4",
                                         COLORS.primaryBtn
                                     )}>
                                         Register now!
@@ -107,6 +106,22 @@ const Login = () => {
                                     </Button>
                                 </form>
                             </Card>
+                        </div>
+                    </div>
+                    <div className="relative hidden min-h-[420px] items-center justify-center overflow-hidden bg-slate-100 p-4 lg:flex dark:bg-slate-900">
+                        <div className="absolute inset-0 rounded-[32px] b" />
+                        <div className="relative z-10 flex h-full w-full items-center justify-center rounded-[24px] border border-dashed border-slate-300 bg-white/60 p-6 text-center shadow-inner dark:border-slate-700 dark:bg-slate-800/60">
+                            <div className="max-w-sm">
+                                <p className={cn("text-sm font-semibold uppercase tracking-[0.3em]", COLORS.income)}>
+                                    Your finance hub
+                                </p>
+                                <h2 className={cn("mt-3 text-2xl font-semibold", COLORS.textBrand)}>
+                                    A clean place to manage budgets, expenses, and goals.
+                                </h2>
+                                <p className={cn("mt-3 text-sm leading-7", COLORS.textSecondary)}>
+                                    Add your own image here later. This space is intentionally left for your screenshot or mockup.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
