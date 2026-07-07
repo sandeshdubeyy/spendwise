@@ -1,7 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
+import axios from "axios";
+import toast from "react-hot-toast";
 
 import Button from "../../../components/common/Button";
 import Input from "../../../components/common/Input";
@@ -9,15 +11,18 @@ import { Card } from "../../../components/common/Card";
 import { cn } from "../../../utils/cn";
 import { COLORS } from "../../../constants/colors";
 import { ROUTES } from "../../../constants/routes";
+import { useAuth } from "../../../context/Auth.context";
 
 type RegisterFormValues = {
     name: string;
-    password: string;
     email: string;
+    password: string;
 };
 
 const Register = () => {
     const [showPassword, setShowPassword] = useState(false);
+    const { register: registerUser } = useAuth();
+    const navigate = useNavigate();
 
     const {
         register,
@@ -32,30 +37,58 @@ const Register = () => {
     });
 
     const onSubmit = async (data: RegisterFormValues) => {
-        console.log("Register payload:", data);
-        // API badme dalunga
+        try {
+            await registerUser(data);
+            toast.success("Account created successfully!");
+            navigate(ROUTES.DASHBOARD, { replace: true });
+        } catch (error: unknown) {
+            const message =
+                axios.isAxiosError(error) && error.response?.data?.message
+                    ? error.response.data.message
+                    : "Registration failed. Please try again.";
+            toast.error(message);
+        }
     };
 
     return (
         <div className={cn("min-h-screen", COLORS.pageBg)}>
-            <div className="mx-auto flex min-h-screen max-w-7xl justify-center  px-4 py-10 sm:px-6 lg:px-8">
+            <div className="mx-auto flex min-h-screen max-w-7xl justify-center px-4 py-10 sm:px-6 lg:px-8">
                 <div className="grid w-full overflow-hidden rounded-[32px] border shadow-[0_30px_80px_-35px_rgba(0,0,0,0.35)] lg:grid-cols-[1.05fr_0.95fr]">
                     <div className="flex items-center justify-center bg-white/90 px-6 py-10 sm:px-8 lg:px-12 dark:bg-slate-950/90">
                         <div className="w-full max-w-md">
                             <div className="mb-8 flex-col">
-                                <p className={cn("text-sm font-semibold uppercase tracking-[0.3em] flex justify-center", COLORS.income)}>
+                                <p
+                                    className={cn(
+                                        "flex justify-center text-sm font-semibold uppercase tracking-[0.3em]",
+                                        COLORS.income
+                                    )}
+                                >
                                     Create account
                                 </p>
-                                <h1 className={cn("mt-3 text-3xl font-bold sm:text-4xl", COLORS.textBrand)}>
+                                <h1
+                                    className={cn(
+                                        "mt-3 text-3xl font-bold sm:text-4xl",
+                                        COLORS.textBrand
+                                    )}
+                                >
                                     Get started with SpendWise
                                 </h1>
-                                <p className={cn("mt-3 text-sm leading-7", COLORS.textSecondary)}>
-                                    Create your account and start tracking money with clarity.
+                                <p
+                                    className={cn(
+                                        "mt-3 text-sm leading-7",
+                                        COLORS.textSecondary
+                                    )}
+                                >
+                                    Create your account and start tracking money
+                                    with clarity.
                                 </p>
                             </div>
 
-                            <Card className="border-none bg-transparent rounded-none p-0 shadow-none w-100">
-                                <form onSubmit={handleSubmit(onSubmit)} className="space-y-5 dark:bg-slate-950/90">
+                            <Card className="w-100 rounded-none border-none bg-transparent p-0 shadow-none">
+                                <form
+                                    onSubmit={handleSubmit(onSubmit)}
+                                    className="space-y-5 dark:bg-slate-950/90"
+                                >
                                     <Input
                                         label="Full name"
                                         placeholder="Enter your full name"
@@ -64,7 +97,8 @@ const Register = () => {
                                             required: "Name is required",
                                             minLength: {
                                                 value: 2,
-                                                message: "Name must be at least 2 characters",
+                                                message:
+                                                    "Name must be at least 2 characters",
                                             },
                                         })}
                                         error={errors.name?.message}
@@ -88,14 +122,20 @@ const Register = () => {
                                     <div className="relative">
                                         <Input
                                             label="Password"
-                                            type={showPassword ? "text" : "password"}
+                                            type={
+                                                showPassword
+                                                    ? "text"
+                                                    : "password"
+                                            }
                                             placeholder="Create a password"
                                             className="border-1"
                                             {...register("password", {
-                                                required: "Password is required",
+                                                required:
+                                                    "Password is required",
                                                 minLength: {
                                                     value: 6,
-                                                    message: "Password must be at least 6 characters",
+                                                    message:
+                                                        "Password must be at least 6 characters",
                                                 },
                                             })}
                                             error={errors.password?.message}
@@ -103,14 +143,25 @@ const Register = () => {
 
                                         <button
                                             type="button"
-                                            onClick={() => setShowPassword((prev) => !prev)}
+                                            onClick={() =>
+                                                setShowPassword((prev) => !prev)
+                                            }
                                             className="absolute right-3 top-10 rounded-md text-slate-500 transition-colors hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200"
                                         >
-                                            {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                            {showPassword ? (
+                                                <EyeOff size={18} />
+                                            ) : (
+                                                <Eye size={18} />
+                                            )}
                                         </button>
                                     </div>
 
-                                    <Button type="submit" size="lg" className="w-full" isLoading={isSubmitting}>
+                                    <Button
+                                        type="submit"
+                                        size="lg"
+                                        className="w-full"
+                                        isLoading={isSubmitting}
+                                    >
                                         Create account
                                         <ArrowRight size={16} />
                                     </Button>
@@ -119,7 +170,10 @@ const Register = () => {
 
                             <p className={cn("mt-6 text-sm", COLORS.textSecondary)}>
                                 Already have an account?{" "}
-                                <Link to={ROUTES.LOGIN} className={cn("font-semibold", COLORS.link)}>
+                                <Link
+                                    to={ROUTES.LOGIN}
+                                    className={cn("font-semibold", COLORS.link)}
+                                >
                                     Log in
                                 </Link>
                             </p>
@@ -130,14 +184,32 @@ const Register = () => {
                         <div className="absolute inset-0 rounded-[32px] b" />
                         <div className="relative z-10 flex h-full w-full items-center justify-center rounded-[24px] border border-dashed border-slate-300 bg-white/60 p-6 text-center shadow-inner dark:border-slate-700 dark:bg-slate-800/60">
                             <div className="max-w-sm">
-                                <p className={cn("text-sm font-semibold uppercase tracking-[0.3em]", COLORS.income)}>
+                                <p
+                                    className={cn(
+                                        "text-sm font-semibold uppercase tracking-[0.3em]",
+                                        COLORS.income
+                                    )}
+                                >
                                     Your finance hub
                                 </p>
-                                <h2 className={cn("mt-3 text-2xl font-semibold", COLORS.textBrand)}>
-                                    A clean place to manage budgets, expenses, and goals.
+                                <h2
+                                    className={cn(
+                                        "mt-3 text-2xl font-semibold",
+                                        COLORS.textBrand
+                                    )}
+                                >
+                                    A clean place to manage budgets, expenses,
+                                    and goals.
                                 </h2>
-                                <p className={cn("mt-3 text-sm leading-7", COLORS.textSecondary)}>
-                                    Add your own image here later. This space is intentionally left for your screenshot or mockup.
+                                <p
+                                    className={cn(
+                                        "mt-3 text-sm leading-7",
+                                        COLORS.textSecondary
+                                    )}
+                                >
+                                    Add your own image here later. This space is
+                                    intentionally left for your screenshot or
+                                    mockup.
                                 </p>
                             </div>
                         </div>

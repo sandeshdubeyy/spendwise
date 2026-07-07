@@ -1,23 +1,38 @@
-import { Routes, Route, Navigate } from "react-router-dom";
-import DashboardLayout from "../layouts/Dashboard.layouts";
-import Dashboard from "../pages/private/Dashboard/Dashboard";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
+import Spinner from "../components/common/Spinner";
+import { cn } from "../utils/cn";
+import { COLORS } from "../constants/colors";
 import { ROUTES } from "../constants/routes";
+import { useAuth } from "../context/Auth.context";
 
-/**
- * Note: this file defines the protected nested routes.
- * You can import and mount these routes from your main router once auth is implemented.
- */
-const ProtectedRoutes = () => {
-  return (
-    <Routes>
-      <Route path={ROUTES.DASHBOARD} element={<DashboardLayout />}>
-        <Route index element={<Dashboard />} />
-        {/* Add additional child routes nested under /dashboard here */}
-      </Route>
+const ProtectedRoute = () => {
+    const { isAuthenticated, loading } = useAuth();
+    const location = useLocation();
 
-      <Route path="*" element={<Navigate to={ROUTES.DASHBOARD} replace />} />
-    </Routes>
-  );
+    if (loading) {
+        return (
+            <div
+                className={cn(
+                    "flex min-h-screen items-center justify-center",
+                    COLORS.pageBg
+                )}
+            >
+                <Spinner size="lg" className={COLORS.textBrand} />
+            </div>
+        );
+    }
+
+    if (!isAuthenticated) {
+        return (
+            <Navigate
+                to={ROUTES.LOGIN}
+                replace
+                state={{ from: location }}
+            />
+        );
+    }
+
+    return <Outlet />;
 };
 
-export default ProtectedRoutes;
+export default ProtectedRoute;
