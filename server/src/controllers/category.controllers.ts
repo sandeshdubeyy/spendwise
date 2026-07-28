@@ -11,7 +11,7 @@ export const createCategory = async(
 ) : Promise<void> => {
     try {
       const {name} = req.body;
-      const user = req.body.user
+      const user = req.user.id
       const existingCategory = await Category.findOne({
         name: { $regex: `^${name}$`, $options: "i" },
         user,

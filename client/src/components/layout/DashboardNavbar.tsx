@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { User as UserIcon, ChevronDown, LogOut } from "lucide-react";
+import { User as UserIcon, ChevronDown, LogOut, Menu, Sun, Moon } from "lucide-react";
 import { cn } from "../../utils/cn";
 import { COLORS } from "../../constants/colors";
-import ThemeToggle from "../common/ThemeToggle";
 import { ROUTES } from "../../constants/routes";
+import { useTheme } from "../../context/Theme.context";
+import DashboardMobileDrawer from "./DashboardMobileDrawer";
 
 import logo from "../../assets/images/spendwise-logo.png";
 
@@ -32,6 +33,9 @@ const getInitials = (name?: string) => {
 const DashboardNavbar = ({ user, onLogout }: DashboardNavbarProps) => {
   const [open, setOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const { theme, toggleTheme } = useTheme();
+
 
   useEffect(() => {
     const onDocClick = (e: MouseEvent) => {
@@ -69,11 +73,7 @@ const DashboardNavbar = ({ user, onLogout }: DashboardNavbarProps) => {
           </Link>
         </div>
 
-        <div className="flex items-center gap-4">
-          <div className="hidden md:block">
-            <ThemeToggle className="rounded-lg" iconSize={22} />
-          </div>
-
+        <div className="flex items-center gap-3">
           <div className="relative" ref={menuRef}>
             <button
               type="button"
@@ -104,7 +104,7 @@ const DashboardNavbar = ({ user, onLogout }: DashboardNavbarProps) => {
 
               <ChevronDown
                 size={18}
-                className={open ? "rotate-180 transform" : ""}
+                className={cn("hidden sm:block", open ? "rotate-180 transform" : "")}
               />
             </button>
 
@@ -152,6 +152,18 @@ const DashboardNavbar = ({ user, onLogout }: DashboardNavbarProps) => {
                     Change Password
                   </Link>
 
+                  <button
+                    type="button"
+                    onClick={() => {
+                      toggleTheme();
+                      setOpen(false);
+                    }}
+                    className="flex w-full items-center gap-2 px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800"
+                  >
+                    {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+                    <span>{theme === "dark" ? "Light mode" : "Dark mode"}</span>
+                  </button>
+
                   <div className="mt-2 border-t" />
 
                   <button
@@ -169,8 +181,21 @@ const DashboardNavbar = ({ user, onLogout }: DashboardNavbarProps) => {
               </div>
             )}
           </div>
+
+          <button
+            onClick={() => setDrawerOpen(true)}
+            aria-label="Open menu"
+            className={cn(
+              "rounded-lg p-2 transition-colors duration-200 lg:hidden",
+              COLORS.focusRing,
+              "hover:bg-green-50 dark:hover:bg-blue-900/40"
+            )}
+          >
+            <Menu size={22} />
+          </button>
         </div>
       </nav>
+      <DashboardMobileDrawer isOpen={drawerOpen} setIsOpen={setDrawerOpen} />
     </header>
   );
 };

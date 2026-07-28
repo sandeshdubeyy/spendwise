@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "../components/layout/Sidebar";
+import Sidebar from "../components/layout/DashboardSidebar";
 import { cn } from "../utils/cn";
 import { COLORS } from "../constants/colors";
 import DashboardNavbar from "../components/layout/DashboardNavbar";

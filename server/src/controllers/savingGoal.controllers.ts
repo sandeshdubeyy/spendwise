@@ -25,7 +25,7 @@ export const createSavingGoal = async (
             return;
         }
 
-        const category = await SavingsGoal.create({
+        const savingGoal = await SavingsGoal.create({
             title,
             targetAmount,
             currentAmount: currentAmount || 0,
@@ -35,7 +35,7 @@ export const createSavingGoal = async (
 
         res.status(201).json({
             message: "Savings goal created successfully",
-            category
+            savingGoal
         });
     } catch (error) {
         console.log(error);
@@ -214,7 +214,7 @@ export const getGoalProgress = async (
 
 			return {
 				title: goal.title,
-				targetAmoount: goal.targetAmount,
+				targetAmount: goal.targetAmount,
 				currentAmount: goal.currentAmount,
 				remainingAmount,
 				progressPercentage,
