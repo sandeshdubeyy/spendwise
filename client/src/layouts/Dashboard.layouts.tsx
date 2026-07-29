@@ -16,7 +16,7 @@ const DashboardLayout = (_props: DashboardLayoutProps) => {
       <Sidebar />
 
       {/* main content ka account for navbar height (h-20) and sidebar width on large screens */}
-      <main className="min-h-[calc(100vh-5rem)] pt-20 lg:ml-72">
+      <main className="min-h-[calc(100vh-5rem)] lg:ml-72">
         <div className="mx-auto max-w-7xl px-6 py-8 lg:px-8">
           <Outlet />
         </div>

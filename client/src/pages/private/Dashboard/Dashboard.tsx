@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Card } from "../../../components/common/Card";
 import Spinner from "../../../components/common/Spinner";
+import RecentTransactionsTable from "../../../components/dashboard/RecentTransactionsTable";
 import { cn } from "../../../utils/cn";
 import { COLORS } from "../../../constants/colors";
 import { getDashboardSummary } from "../../../services/expense.services";
@@ -51,28 +52,32 @@ const Dashboard = () => {
       ) : error ? (
         <p className={COLORS.danger}>{error}</p>
       ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <Card className="p-6">
-            <h3 className={cn("text-sm font-semibold", COLORS.textSecondary)}>Balance</h3>
-            <div className={cn("mt-3 text-2xl font-bold", COLORS.textPrimary)}>
-              {formatMoney(summary!.currentBalance)}
-            </div>
-          </Card>
+        <>
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <Card className="p-6">
+              <h3 className={cn("text-sm font-semibold", COLORS.textSecondary)}>Balance</h3>
+              <div className={cn("mt-3 text-2xl font-bold", COLORS.textPrimary)}>
+                {formatMoney(summary!.currentBalance)}
+              </div>
+            </Card>
 
-          <Card className="p-6">
-            <h3 className={cn("text-sm font-semibold", COLORS.textSecondary)}>Income</h3>
-            <div className={cn("mt-3 text-2xl font-bold", COLORS.income)}>
-              {formatMoney(summary!.totalIncome)}
-            </div>
-          </Card>
+            <Card className="p-6">
+              <h3 className={cn("text-sm font-semibold", COLORS.textSecondary)}>Income</h3>
+              <div className={cn("mt-3 text-2xl font-bold", COLORS.income)}>
+                {formatMoney(summary!.totalIncome)}
+              </div>
+            </Card>
 
-          <Card className="p-6">
-            <h3 className={cn("text-sm font-semibold", COLORS.textSecondary)}>Expenses</h3>
-            <div className={cn("mt-3 text-2xl font-bold", COLORS.expense)}>
-              {formatMoney(summary!.totalExpense)}
-            </div>
-          </Card>
-        </div>
+            <Card className="p-6">
+              <h3 className={cn("text-sm font-semibold", COLORS.textSecondary)}>Expenses</h3>
+              <div className={cn("mt-3 text-2xl font-bold", COLORS.expense)}>
+                {formatMoney(summary!.totalExpense)}
+              </div>
+            </Card>
+          </div>
+
+          <RecentTransactionsTable />
+        </>
       )}
     </>
   );
