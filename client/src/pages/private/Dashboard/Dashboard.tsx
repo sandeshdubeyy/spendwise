@@ -2,6 +2,9 @@ import { useEffect, useState } from "react";
 import { Card } from "../../../components/common/Card";
 import Spinner from "../../../components/common/Spinner";
 import RecentTransactionsTable from "../../../components/dashboard/RecentTransactionsTable";
+import AddExpensePrompt from "../../../components/dashboard/AddExpensePrompt";
+import MonthlyTrendChart from "../../../components/dashboard/MonthlyTrendChart";
+import CategorySpendingChart from "../../../components/dashboard/CategorySpendingChart";
 import { cn } from "../../../utils/cn";
 import { COLORS } from "../../../constants/colors";
 import { getDashboardSummary } from "../../../services/expense.services";
@@ -77,6 +80,18 @@ const Dashboard = () => {
           </div>
 
           <RecentTransactionsTable />
+
+          <AddExpensePrompt />
+
+          <div className="mt-6 grid gap-6 xl:grid-cols-[1.75fr_1.25fr]">
+            <div className="min-w-0">
+              <MonthlyTrendChart />
+            </div>
+
+            <div className="min-w-0">
+              <CategorySpendingChart />
+            </div>
+          </div>
         </>
       )}
     </>
