@@ -41,7 +41,7 @@ const Modal = ({ isOpen, onClose, title, children, className }: ModalProps) => {
 			<div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
 				<div
 					className={cn(
-						"w-full max-w-md rounded-xl border shadow-xl",
+						 "w-full max-w-md max-h-[95vh] overflow-y-auto scrollbar-hide rounded-xl border shadow-xl",
 						COLORS.cardBg,
 						COLORS.cardBorder,
 						className

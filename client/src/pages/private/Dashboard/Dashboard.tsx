@@ -8,6 +8,7 @@ import CategorySpendingChart from "../../../components/dashboard/CategorySpendin
 import { cn } from "../../../utils/cn";
 import { COLORS } from "../../../constants/colors";
 import { getDashboardSummary } from "../../../services/expense.services";
+import AnalyticsPrompt from "../../../components/dashboard/AnalyticsPrompt";
 
 interface Summary {
   transactionCount: number;
@@ -56,11 +57,18 @@ const Dashboard = () => {
         <p className={COLORS.danger}>{error}</p>
       ) : (
         <>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
             <Card className="p-6">
               <h3 className={cn("text-sm font-semibold", COLORS.textSecondary)}>Balance</h3>
               <div className={cn("mt-3 text-2xl font-bold", COLORS.textPrimary)}>
                 {formatMoney(summary!.currentBalance)}
+              </div>
+            </Card>
+
+            <Card className="p-6">
+              <h3 className={cn("text-sm font-semibold", COLORS.textSecondary)}>Expenses</h3>
+              <div className={cn("mt-3 text-2xl font-bold", COLORS.expense)}>
+                {formatMoney(summary!.totalExpense)}
               </div>
             </Card>
 
@@ -70,11 +78,11 @@ const Dashboard = () => {
                 {formatMoney(summary!.totalIncome)}
               </div>
             </Card>
-
+            
             <Card className="p-6">
-              <h3 className={cn("text-sm font-semibold", COLORS.textSecondary)}>Expenses</h3>
-              <div className={cn("mt-3 text-2xl font-bold", COLORS.expense)}>
-                {formatMoney(summary!.totalExpense)}
+              <h3 className={cn("text-sm font-semibold", COLORS.textSecondary)}>Transactions</h3>
+              <div className={cn("mt-3 text-2xl font-bold", COLORS.textPrimary)}>
+                {summary!.transactionCount}
               </div>
             </Card>
           </div>
@@ -92,6 +100,8 @@ const Dashboard = () => {
               <CategorySpendingChart />
             </div>
           </div>
+
+          <AnalyticsPrompt />
         </>
       )}
     </>

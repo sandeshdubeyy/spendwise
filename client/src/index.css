@@ -31,3 +31,13 @@ body {
 	@apply bg-white text-slate-900 antialiased dark:bg-[#0b1f3a] dark:text-white;
 }
 
+@layer utilities {
+  .scrollbar-hide {
+    -ms-overflow-style: none; /* IE & old Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Edge */
+  }
+}

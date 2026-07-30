@@ -7,6 +7,7 @@ import DashboardLayout from "../layouts/Dashboard.layouts";
 import Dashboard from "../pages/private/Dashboard/Dashboard";
 import ProtectedRoute from "./Protected.routes";
 import { ROUTES } from "../constants/routes";
+import Expenses from "../pages/private/Expenses/Expenses";
 
 const AppRoutes = () => {
     return (
@@ -43,8 +44,10 @@ const AppRoutes = () => {
             <Route element={<ProtectedRoute />}>
                 <Route element={<DashboardLayout />}>
                     <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
+                    <Route path={ROUTES.EXPENSES} element={<Expenses/>}/>
                     {/* Add more private pages here later */}
                 </Route>
+
             </Route>
 
             <Route path="*" element={<Navigate to={ROUTES.HOME} replace />} />
