@@ -34,9 +34,63 @@ export const getExpenses = async (
     res: Response,
 ): Promise<void> => {
     try {
-        const expenses = await Expense.find({
-            user: req.user.id,
-        });
+        const user = req.user.id;
+        const { search, type } = req.query;
+
+        const matchStage: any = {
+            user: new mongoose.Types.ObjectId(user as string),
+        };
+
+        if (type === "income" || type === "expense") {
+            matchStage.type = type;
+        }
+
+        // No search term — return normally, populated, sorted by newest first
+        if (!search || typeof search !== "string" || !search.trim()) {
+            const expenses = await Expense.find(matchStage)
+                .populate("category")
+                .sort({ date: -1 });
+
+            res.status(200).json({
+                expenses,
+            });
+            return;
+        }
+
+        const searchRegex = new RegExp(search.trim(), "i");
+
+        // Aggregation needed because we're matching against the populated
+        // category's name too, not just the expense's own fields.
+        const expenses = await Expense.aggregate([
+            {
+                $match: matchStage,
+            },
+            {
+                $lookup: {
+                    from: "categories",
+                    localField: "category",
+                    foreignField: "_id",
+                    as: "category",
+                },
+            },
+            {
+                $unwind: "$category",
+            },
+            {
+                $match: {
+                    $or: [
+                        { title: searchRegex },
+                        { "category.name": searchRegex },
+                        { paymentMethod: searchRegex },
+                    ],
+                },
+            },
+            {
+                $sort: {
+                    date: -1,
+                },
+            },
+        ]);
 
         res.status(200).json({
             expenses,

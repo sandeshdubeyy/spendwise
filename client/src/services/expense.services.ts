@@ -15,6 +15,12 @@ export interface Expense {
     note?: string;
 }
 
+export interface GetExpensesParams {
+    search?: string;
+    type?: ExpenseType;
+}
+
+
 export interface ExpenseInput {
     title: string;
     amount: number;
@@ -26,8 +32,8 @@ export interface ExpenseInput {
     note?: string;
 }
 
-export const getExpenses = async () => {
-    const { data } = await api.get<{ expenses: Expense[]; }>("/expenses");
+export const getExpenses = async (params?: GetExpensesParams) => {
+    const { data } = await api.get<{ expenses: Expense[] }>("/expenses", { params });
     return data.expenses;
 };
 

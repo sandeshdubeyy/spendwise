@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "../../../components/common/Card";
 import Spinner from "../../../components/common/Spinner";
 import AddExpenseButton from "../../../components/expense/AddExpenseButton";
+import ExpenseSearchBar from "../../../components/expense/ExpenseSearchBar";
 import { cn } from "../../../utils/cn";
 import { COLORS } from "../../../constants/colors";
 import { getDashboardSummary } from "../../../services/expense.services";
@@ -70,7 +71,7 @@ const Expenses = () => {
                             </div>
                         </Card>
 
-                        <Card className={cn("p-6")}>
+                        <Card className="p-6">
                             <h3 className={cn("text-sm font-semibold", COLORS.textSecondary)}>Income</h3>
                             <div className={cn("mt-3 text-2xl font-bold", COLORS.income)}>
                                 {formatMoney(summary!.totalIncome)}
@@ -83,6 +84,10 @@ const Expenses = () => {
                                 {summary!.transactionCount}
                             </div>
                         </Card>
+                    </div>
+
+                    <div className="mt-6">
+                        <ExpenseSearchBar />
                     </div>
 
                     <AddExpenseButton onSuccess={() => setRefreshKey((prev) => prev + 1)} />
