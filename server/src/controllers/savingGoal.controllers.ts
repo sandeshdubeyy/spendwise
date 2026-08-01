@@ -25,6 +25,17 @@ export const createSavingGoal = async (
             return;
         }
 
+		const savingGoalCount = await SavingsGoal.countDocuments({
+			  user,
+			});
+		
+			if (savingGoalCount >= 20) {
+			  res.status(400).json({
+				message: "You can create a maximum of 20 saving goals.",
+			  });
+			  return;
+			}
+
         const savingGoal = await SavingsGoal.create({
             title,
             targetAmount,

@@ -1,4 +1,4 @@
-import { Request,Response } from "express";
+import { Request, Response } from "express";
 import mongoose from "mongoose";
 
 import Budget from "../models/Budget.models";
@@ -29,11 +29,22 @@ export const createBudget = async (
 			return;
 		}
 
+		const budgetCount = await Budget.countDocuments({
+			user,
+		});
+
+		if (budgetCount >= 50) {
+			res.status(400).json({
+				message: "You can create a maximum of 50 budgets.",
+			});
+			return;
+		}
+
 		const budget = await Budget.create({
 			category,
 			amount,
 			month,
-			year,	
+			year,
 			user,
 		});
 
@@ -51,39 +62,39 @@ export const createBudget = async (
 };
 
 export const getBudgets = async (
-    req:Request,
-    res:Response,
-) : Promise<void> => {
-    try {
-        const user = req.user.id;
-        const month = req.query.month as string;
-        const year = req.query.year  as string;
+	req: Request,
+	res: Response,
+): Promise<void> => {
+	try {
+		const user = req.user.id;
+		const month = req.query.month as string;
+		const year = req.query.year as string;
 
-        const query: any = { user };
+		const query: any = { user };
 
-        if(month){
-            query.month = Number(month);
-        };
+		if (month) {
+			query.month = Number(month);
+		};
 
-        if(year){
-            query.year = Number(year);
-        };
+		if (year) {
+			query.year = Number(year);
+		};
 
-        const budgets = await Budget.find(
-            query,
-        ).populate("category");
+		const budgets = await Budget.find(
+			query,
+		).populate("category");
 
-        res.status(200).json({
-            budgets,
-        });
-    } catch (error) {
-        console.log(error);
+		res.status(200).json({
+			budgets,
+		});
+	} catch (error) {
+		console.log(error);
 
-        res.status(500).json({
-            message:"Server Error",
-        })
-    }
-}
+		res.status(500).json({
+			message: "Server Error",
+		});
+	}
+};
 
 export const getBudgetById = async (
 	req: Request,
@@ -126,7 +137,7 @@ export const updateBudget = async (
 			month,
 			year,
 		} = req.body;
-		
+
 		const budget = await Budget.findOne({
 			_id: id
 		});
@@ -181,32 +192,32 @@ export const updateBudget = async (
 };
 
 export const deleteBudget = async (
-	req:Request,
-	res:Response,
-) : Promise<void> => {
+	req: Request,
+	res: Response,
+): Promise<void> => {
 	try {
 		const budget = await Budget.findByIdAndDelete(
 			req.params.id,
 		);
 
-		if(!budget){
+		if (!budget) {
 			res.status(404).json({
-				message:"Budget not found",
+				message: "Budget not found",
 			});
 			return;
 		};
 
 		res.status(200).json({
-			message:"Budget deleted successfully",
+			message: "Budget deleted successfully",
 		});
 	} catch (error) {
 		console.log(error);
 
 		res.status(500).json({
-			message:"Server Error",
-		})
+			message: "Server Error",
+		});
 	}
-}
+};
 
 export const getBudgetSummary = async (
 	req: Request,
