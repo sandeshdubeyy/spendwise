@@ -15,6 +15,17 @@ export interface BudgetInput {
     year: number;
 }
 
+export interface BudgetSummary {
+    totalBudget: number;
+    totalCategories: number;
+    currentMonthBudget: number;
+    highestBudgetCategory: {
+        category: string;
+        amount: number;
+    } | null;
+}
+
+
 export const getBudgets = async (params?: { month?: number; year?: number }) => {
     const { data } = await api.get<{ budgets: Budget[] }>("/budgets", { params });
     return data.budgets;
@@ -37,4 +48,9 @@ export const updateBudget = async (id: string, payload: Partial<BudgetInput>) =>
 
 export const deleteBudget = async (id: string) => {
     await api.delete(`/budgets/${id}`);
+};
+
+export const getBudgetSummary = async () => {
+    const { data } = await api.get<BudgetSummary>("/budgets/summary");
+    return data;
 };

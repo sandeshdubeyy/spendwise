@@ -9,6 +9,7 @@ import ProtectedRoute from "./Protected.routes";
 import { ROUTES } from "../constants/routes";
 import Expenses from "../pages/private/Expenses/Expenses";
 import Categories from "../pages/private/Category/Categories";
+import Budgets from "../pages/private/Budgets/Budgets";
 
 const AppRoutes = () => {
     return (
@@ -47,6 +48,7 @@ const AppRoutes = () => {
                     <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
                     <Route path={ROUTES.EXPENSES} element={<Expenses/>}/>
                     <Route path={ROUTES.CATEGORIES} element={<Categories />} />
+                    <Route path={ROUTES.BUDGETS} element={<Budgets />} />
                     {/* Add more private pages here later */}
                 </Route>
 

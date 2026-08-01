@@ -1,5 +1,5 @@
 import express from "express";
-import { createBudget, deleteBudget, getBudgetById, getBudgets, updateBudget } from "../controllers/budget.controllers";
+import { createBudget, deleteBudget, getBudgetById, getBudgets, getBudgetSummary, updateBudget } from "../controllers/budget.controllers";
 import { authMiddleware } from "../middlewares/auth.middlewares";
 
 const budgetRouter = express.Router();
@@ -8,6 +8,7 @@ const budgetRouter = express.Router();
 budgetRouter.use(authMiddleware);
 
 budgetRouter.get("/",getBudgets);
+budgetRouter.get("/summary",authMiddleware,getBudgetSummary);
 budgetRouter.post("/",createBudget);
 
 budgetRouter.get("/:id", getBudgetById);
