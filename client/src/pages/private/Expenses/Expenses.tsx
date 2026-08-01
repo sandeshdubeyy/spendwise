@@ -6,6 +6,8 @@ import ExpenseSearchBar from "../../../components/expense/ExpenseSearchBar";
 import { cn } from "../../../utils/cn";
 import { COLORS } from "../../../constants/colors";
 import { getDashboardSummary } from "../../../services/expense.services";
+import ExpenseRecentTransactions from "../../../components/expense/ExpenseRecentTransactions";
+import ExpenseAnalyticsPrompt from "../../../components/expense/ExpenseAnalyticsPrompt";
 
 interface Summary {
     transactionCount: number;
@@ -91,6 +93,12 @@ const Expenses = () => {
                     </div>
 
                     <AddExpenseButton onSuccess={() => setRefreshKey((prev) => prev + 1)} />
+
+                    <ExpenseRecentTransactions
+                        refreshKey={refreshKey}
+                        onRefresh={() => setRefreshKey((prev) => prev + 1)}
+                    />
+                    <ExpenseAnalyticsPrompt/>
                 </>
             )}
         </>
