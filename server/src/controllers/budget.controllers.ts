@@ -208,3 +208,63 @@ export const deleteBudget = async (
 	}
 }
 
+export const getBudgetSummary = async (
+	req: Request,
+	res: Response,
+): Promise<void> => {
+	try {
+		const user = req.user.id;
+
+		const now = new Date();
+		const currentMonth = now.getMonth() + 1;
+		const currentYear = now.getFullYear();
+
+		const budgets = await Budget.find({
+			user,
+		}).populate("category");
+
+		const totalBudget = budgets.reduce(
+			(sum, budget) => sum + budget.amount,
+			0,
+		);
+
+		const totalCategories = budgets.length;
+
+		const currentMonthBudget = budgets
+			.filter(
+				(budget) =>
+					budget.month === currentMonth &&
+					budget.year === currentYear,
+			)
+			.reduce(
+				(sum, budget) => sum + budget.amount,
+				0,
+			);
+
+		let highestBudgetCategory = null;
+
+		if (budgets.length > 0) {
+			const highest = budgets.reduce((prev, current) =>
+				current.amount > prev.amount ? current : prev,
+			);
+
+			highestBudgetCategory = {
+				category: (highest.category as any).name,
+				amount: highest.amount,
+			};
+		}
+
+		res.status(200).json({
+			totalBudget,
+			totalCategories,
+			currentMonthBudget,
+			highestBudgetCategory,
+		});
+	} catch (error) {
+		console.log(error);
+
+		res.status(500).json({
+			message: "Server Error",
+		});
+	}
+};
