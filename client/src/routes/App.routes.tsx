@@ -10,6 +10,7 @@ import { ROUTES } from "../constants/routes";
 import Expenses from "../pages/private/Expenses/Expenses";
 import Categories from "../pages/private/Category/Categories";
 import Budgets from "../pages/private/Budgets/Budgets";
+import SavingsGoals from "../pages/private/SavingGoals/SavingsGoals";
 
 const AppRoutes = () => {
     return (
@@ -49,6 +50,7 @@ const AppRoutes = () => {
                     <Route path={ROUTES.EXPENSES} element={<Expenses/>}/>
                     <Route path={ROUTES.CATEGORIES} element={<Categories />} />
                     <Route path={ROUTES.BUDGETS} element={<Budgets />} />
+                    <Route path={ROUTES.SAVINGS_GOALS} element={<SavingsGoals />} />
                     {/* Add more private pages here later */}
                 </Route>
 
