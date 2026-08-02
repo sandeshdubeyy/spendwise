@@ -19,7 +19,7 @@ const MONTH_NAMES = [
 ];
 
 const formatMoney = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
+    new Intl.NumberFormat("en-US", { style: "currency", currency: "INR" }).format(value);
 
 const getCategoryName = (category: Budget["category"]) =>
     typeof category === "string" ? category : category?.name ?? "—";

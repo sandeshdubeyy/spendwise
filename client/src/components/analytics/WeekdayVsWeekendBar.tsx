@@ -9,7 +9,7 @@ import {
 } from "../../services/analytics.services";
 
 const formatMoney = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
+    new Intl.NumberFormat("en-US", { style: "currency", currency: "INR" }).format(value);
 
 const WeekdayVsWeekendBar = () => {
     const [data, setData] = useState<WeekdayVsWeekend | null>(null);

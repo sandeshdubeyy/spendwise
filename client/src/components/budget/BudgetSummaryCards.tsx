@@ -5,7 +5,7 @@ import { COLORS } from "../../constants/colors";
 import { useBudget } from "../../context/Budget.context";
 
 const formatMoney = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
+    new Intl.NumberFormat("en-US", { style: "currency", currency: "INR" }).format(value);
 
 const BudgetSummaryCards = () => {
     const { summary, loading, error } = useBudget();

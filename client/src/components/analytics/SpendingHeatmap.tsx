@@ -18,7 +18,7 @@ const levelClasses = [
 const toDateKey = (date: Date) => date.toISOString().slice(0, 10);
 
 const formatMoney = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
+    new Intl.NumberFormat("en-US", { style: "currency", currency: "INR" }).format(value);
 
 interface DayCell {
     dateKey: string;

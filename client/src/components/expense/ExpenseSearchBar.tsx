@@ -26,7 +26,7 @@ const formatDate = (dateStr: string) =>
     });
 
 const formatMoney = (value: number) =>
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(value);
+    new Intl.NumberFormat("en-US", { style: "currency", currency: "INR" }).format(value);
 
 const getCategoryName = (category: Expense["category"]) =>
     typeof category === "string" ? category : category?.name ?? "—";
