@@ -5,15 +5,18 @@ import { cn } from "../utils/cn";
 import { COLORS } from "../constants/colors";
 import DashboardNavbar from "../components/layout/DashboardNavbar";
 import DashboardFooter from "../components/layout/DashboardFooter";
+import { useAuth } from "../context/Auth.context";
 
 interface DashboardLayoutProps {
   children?: ReactNode;
 }
 
 const DashboardLayout = (_props: DashboardLayoutProps) => {
+  const { user, logout } = useAuth();
+
   return (
     <div className={cn("min-h-screen flex flex-col", COLORS.pageBg)}>
-      <DashboardNavbar />
+      <DashboardNavbar user={user ?? undefined} onLogout={logout} />
       <Sidebar />
 
       <main className="flex-1 lg:ml-72">
@@ -22,9 +25,13 @@ const DashboardLayout = (_props: DashboardLayoutProps) => {
         </div>
       </main>
 
-      {_props.children == "Expenses" ? <div className="lg:ml-72">
-        <DashboardFooter />
-      </div> : <></>}
+      {_props.children == "Expenses" ? (
+        <div className="lg:ml-72">
+          <DashboardFooter />
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

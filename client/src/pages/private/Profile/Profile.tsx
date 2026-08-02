@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Mail, Wallet, TrendingUp, TrendingDown, Receipt, ArrowLeft } from "lucide-react";
+import { Mail, Wallet, TrendingUp, TrendingDown, Receipt, ArrowLeft, Settings } from "lucide-react";
 import { Card } from "../../../components/common/Card";
 import StatCard from "../../../components/dashboard/StatCard";
 import PromptCard from "../../../components/common/PromptCard";
@@ -50,26 +50,46 @@ const Profile = () => {
 
     return (
         <>
-            <button
-                type="button"
-                onClick={() => navigate(ROUTES.DASHBOARD)}
-                className={cn(
-                    "mb-4 inline-flex items-center gap-2 text-sm font-medium transition-colors pt-5 pl-5",
-                    COLORS.link
-                )}
-            >
-                <ArrowLeft size={16} />
-                Back to Dashboard
-            </button>
-            <div className="p-5 flex items-center justify-center">
-                <div className=" w-full max-w-5xl">
-                    <div className="mb-6">
-                        <h1 className={cn("text-2xl font-bold", COLORS.textPrimary)}>Profile</h1>
-                        <p className={cn("mt-1 text-sm", COLORS.textSecondary)}>
-                            Your account details and overview.
-                        </p>
-                    </div>
+            <div className="mb-4 flex items-start justify-between ml-5">
+                <div>
+                    <button
+                        type="button"
+                        onClick={() => navigate(ROUTES.DASHBOARD)}
+                        className={cn(
+                            "mb-2 inline-flex items-center gap-2 text-sm font-medium transition-colors pt-5",
+                            COLORS.link
+                        )}
+                    >
+                        <ArrowLeft size={16} />
+                        Back to Dashboard
+                    </button>
 
+                </div>
+
+                <div className="pt-5 pr-5">
+                    <button
+                        type="button"
+                        onClick={() => navigate("/settings")}
+                        className={cn(
+                            "inline-flex items-center gap-2 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
+                            COLORS.outlineBtn
+                        )}
+                        aria-label="Go to settings"
+                    >
+                        <Settings size={16} />
+                        <span className="hidden sm:inline">Settings</span>
+                    </button>
+                </div>
+            </div>
+
+            <div className="p-5 flex flex-col items-center justify-center">
+                <div className="pb-5 max-w-5xl w-full">
+                    <h1 className={cn("text-2xl font-bold", COLORS.textPrimary)}>Profile</h1>
+                    <p className={cn("mt-1 text-sm", COLORS.textSecondary)}>
+                        Your account details and overview.
+                    </p>
+                </div>
+                <div className="w-full max-w-5xl mx-auto">
                     {loading ? (
                         <div className="flex justify-center py-12">
                             <Spinner size="lg" className={COLORS.textBrand} />

@@ -135,19 +135,23 @@ const Settings = () => {
     };
 
     return (
-        <>
-                <button
-                    type="button"
-                    onClick={() => navigate(ROUTES.DASHBOARD)}
-                    className={cn(
-                        "mb-4 inline-flex items-center gap-2 text-sm font-medium transition-colors mt-5 ml-5",
-                        COLORS.link
-                    )}
-                >
-                    <ArrowLeft size={16} />
-                    Back to Dashboard
-                </button>
-            <div className="mx-auto w-full max-w-2xl h-500px">
+        <div>
+            <button
+                type="button"
+                onClick={() => navigate(ROUTES.DASHBOARD)}
+                className={cn(
+                    "mb-4 ml-5 mt-5 inline-flex items-center gap-2 text-sm font-medium transition-colors",
+                    COLORS.link
+                )}
+            >
+                <ArrowLeft size={16} />
+                Back to Dashboard
+            </button>
+            <div
+                className="mx-auto flex w-full max-w-2xl flex-col mt-[46px]"
+                style={{ minHeight: "calc(100vh - 9rem)" }}
+            >
+
                 <div className="mb-6">
                     <h1 className={cn("text-2xl font-bold", COLORS.textPrimary)}>Settings</h1>
                     <p className={cn("mt-1 text-sm", COLORS.textSecondary)}>
@@ -155,8 +159,7 @@ const Settings = () => {
                     </p>
                 </div>
 
-                <div className="max-h-[calc(100vh-220px)] space-y-6 overflow-y-auto scrollbar-hide pb-2">
-
+                <div className="flex-1 space-y-6 overflow-y-auto scrollbar-hide pb-6">
                     {/* Theme */}
                     <Card>
                         <CardHeader>
@@ -195,9 +198,8 @@ const Settings = () => {
                         </CardBody>
                     </Card>
 
-
                     {/* Account details */}
-                    <Card className="mt-6">
+                    <Card>
                         <CardHeader>
                             <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Account Details</h3>
                         </CardHeader>
@@ -254,6 +256,7 @@ const Settings = () => {
                             </div>
                         </CardBody>
                     </Card>
+
                     <PromptCard
                         title="Want to see your profile?"
                         description="View your name, email, and account overview."
@@ -368,7 +371,7 @@ const Settings = () => {
                     </form>
                 </Modal>
             </div>
-        </>
+        </div>
     );
 };
 

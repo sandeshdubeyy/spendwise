@@ -144,14 +144,6 @@ const DashboardNavbar = ({ user, onLogout }: DashboardNavbarProps) => {
                     Settings
                   </Link>
 
-                  <Link
-                    to="/profile/change-password"
-                    className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-50 dark:text-slate-200 dark:hover:bg-slate-800"
-                    onClick={() => setOpen(false)}
-                  >
-                    Change Password
-                  </Link>
-
                   <button
                     type="button"
                     onClick={() => {
