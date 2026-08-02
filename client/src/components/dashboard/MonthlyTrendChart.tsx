@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import LineChartCard from "../charts/LineChartCard";
-import { getMonthlySpendingTrend } from "../../services/expense.services";
+import { getMonthlySpendingTrend } from "../../services/analytics.services";
 import Spinner from "../common/Spinner";
 import { cn } from "../../utils/cn";
 import { COLORS } from "../../constants/colors";

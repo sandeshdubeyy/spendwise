@@ -2,7 +2,6 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 
 import Expense from "../models/Expense.models";
-import Budget from "../models/Budget.models";
 
 //jwt update done
 //all functions are tested and working 29 june 2026
@@ -433,188 +432,76 @@ export const getRecentTransactions = async (
     }
 };
 
-export const getCategoryWiseSpending = async (
+export const getCurrentMonthSummary = async (
     req: Request,
     res: Response,
 ): Promise<void> => {
     try {
         const user = req.user.id;
 
-        const spending = await Expense.aggregate([
-            {
-                $match: {
-                    user: new mongoose.Types.ObjectId(user),
-                    type: "expense",
-                },
+        const now = new Date();
+        const currentMonth = now.getMonth() + 1;
+        const currentYear = now.getFullYear();
+
+        const monthMatch = {
+            $expr: {
+                $and: [
+                    { $eq: [{ $month: "$date" }, currentMonth] },
+                    { $eq: [{ $year: "$date" }, currentYear] },
+                ],
             },
-            {
-                $group: {
-                    _id: "$category",
-                    totalSpent: {
-                        $sum: "$amount",
-                    },
-                },
-            },
-            {
-                $lookup: {
-                    from: "categories",
-                    localField: "_id",
-                    foreignField: "_id",
-                    as: "category",
-                },
-            },
-            {
-                $unwind: "$category",
-            },
-            {
-                $project: {
-                    _id: 0,
-                    category: "$category.name",
-                    totalSpent: 1,
-                },
-            },
-        ]);
+        };
 
-        console.log(spending);
-        res.status(200).json({
-            spending,
-        });
-
-    } catch (error) {
-        console.log(error);
-
-        res.status(500).json({
-            message: "Server Error",
-        });
-    }
-};
-
-export const getMonthlySpendingTrend = async (
-    req: Request,
-    res: Response,
-): Promise<void> => {
-    try {
-        const user = req.user.id;
-
-        const trend = await Expense.aggregate([
-            {
-                $match: {
-                    user: new mongoose.Types.ObjectId(user),
-                    type: "expense",
-                },
-            },
-            {
-                $group: {
-                    _id: {
-                        year: { $year: "$date" },
-                        month: { $month: "$date" },
-                    },
-                    totalSpent: {
-                        $sum: "$amount",
-                    },
-                },
-            },
-            {
-                $sort: {
-                    "_id.year": 1,
-                    "_id.month": 1,
-                },
-            },
-            {
-                $project: {
-                    _id: 0,
-                    month: {
-                        $concat: [
-                            { $toString: "$_id.year" },
-                            "-",
-                            { $toString: "$_id.month" },
-                        ]
-                    },
-                    totalSpent: 1,
-                },
-            },
-        ]);
-
-        res.status(200).json({
-            trend,
-        });
-
-    } catch (error) {
-        console.log(error);
-
-        res.status(500).json({
-            message: "Server Error",
-        });
-    }
-};
-
-export const getBudgetVsActual = async (
-    req: Request,
-    res: Response,
-): Promise<void> => {
-    try {
-        const user = req.user.id;
-
-        const budgets = await Budget.find({
+        const transactionCount = await Expense.countDocuments({
             user,
-        }).populate("category");
-
-        const analytics: Array<Object> = [];
-
-        for (const budget of budgets) {
-            const spent = await Expense.aggregate([
-                {
-                    $match: {
-                        user: new mongoose.Types.ObjectId(user),
-                        category: budget.category._id,
-                        type: "expense",
-
-                        $expr: {
-                            $and: [
-                                {
-                                    $eq: [
-                                        { $month: "$date" },
-                                        budget.month,
-                                    ],
-                                },
-                                {
-                                    $eq: [
-                                        { $year: "$date" },
-                                        budget.year,
-                                    ],
-                                },
-                            ],
-                        },
-                    },
-                },
-                {
-                    $group: {
-                        _id: null,
-                        totalSpent: {
-                            $sum: "$amount",
-                        },
-                    },
-                },
-            ]);
-            const totalSpent = spent[0]?.totalSpent || 0;
-
-            const remaining = budget.amount - totalSpent;
-
-            analytics.push({
-                category: (budget.category as any).name,
-                budget: budget.amount,
-                spent: totalSpent,
-                remaining,
-                status: remaining >= 0 ? "within_budget" : "over_budget",
-                month: budget.month,
-                year: budget.year
-            });
-        }
-
-        res.status(200).json({
-            analytics,
+            ...monthMatch,
         });
 
+        const result = await Expense.aggregate([
+            {
+                $match: {
+                    user: new mongoose.Types.ObjectId(user as string),
+                    ...monthMatch,
+                },
+            },
+            {
+                $group: {
+                    _id: null,
+
+                    totalIncome: {
+                        $sum: {
+                            $cond: [
+                                { $eq: ["$type", "income"] },
+                                "$amount",
+                                0,
+                            ]
+                        },
+                    },
+
+                    totalExpense: {
+                        $sum: {
+                            $cond: [
+                                { $eq: ["$type", "expense"] },
+                                "$amount",
+                                0,
+                            ]
+                        }
+                    }
+                },
+            },
+        ]);
+
+        const totalIncome = result[0]?.totalIncome || 0;
+        const totalExpense = result[0]?.totalExpense || 0;
+
+        const currentBalance = totalIncome - totalExpense;
+
+        res.status(200).json({
+            transactionCount,
+            totalIncome,
+            totalExpense,
+            currentBalance
+        });
     } catch (error) {
         console.log(error);
 

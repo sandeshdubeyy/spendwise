@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import PieChartCard, { type PieChartItem } from "../charts/PieChartCard";
-import { getCategoryWiseSpending } from "../../services/expense.services";
+import { getCategoryWiseSpending } from "../../services/analytics.services";
 import Spinner from "../common/Spinner";
 import { COLORS } from "../../constants/colors";
 

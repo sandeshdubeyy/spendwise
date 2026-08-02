@@ -71,21 +71,12 @@ export const getRecentTransactions = async () => {
     return data.recentTransaction;
 };
 
-export const getCategoryWiseSpending = async () => {
-    const { data } = await api.get<{ spending: { category: string; totalSpent: number; }[]; }>(
-        "/expenses/category-wise-spending"
-    );
-    return data.spending;
-};
-
-export const getMonthlySpendingTrend = async () => {
-    const { data } = await api.get<{ trend: { month: string; totalSpent: number; }[]; }>(
-        "/expenses/monthly-spending-trend"
-    );
-    return data.trend;
-};
-
-export const getBudgetVsActual = async () => {
-    const { data } = await api.get<{ analytics: any[]; }>("/expenses/budget-vs-actual");
-    return data.analytics;
+export const getCurrentMonthSummary = async () => {
+    const { data } = await api.get<{
+        transactionCount: number;
+        totalIncome: number;
+        totalExpense: number;
+        currentBalance: number;
+    }>("/expenses/current-month-summary");
+    return data;
 };
