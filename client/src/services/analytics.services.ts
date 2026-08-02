@@ -42,6 +42,7 @@ export interface CategoryMoMItem {
 export interface HeatmapItem {
     date: string;
     totalSpent: number;
+    transactionCount: number;
 }
 
 export interface WeekdayVsWeekend {

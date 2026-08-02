@@ -436,6 +436,7 @@ export const getSpendingHeatmap = async (
                         $dateToString: { format: "%Y-%m-%d", date: "$date" },
                     },
                     totalSpent: { $sum: "$amount" },
+                    transactionCount: { $sum: 1 },
                 },
             },
             {
@@ -443,6 +444,7 @@ export const getSpendingHeatmap = async (
                     _id: 0,
                     date: "$_id",
                     totalSpent: 1,
+                    transactionCount: 1,
                 },
             },
             {
@@ -550,7 +552,7 @@ export const getHolidaySpendingComparison = async (
             return;
         }
 
-        const holidays = (await holidayResponse.json()) as { date: string }[];
+        const holidays = (await holidayResponse.json()) as { date: string; }[];
         const holidayDates = new Set(holidays.map((h) => h.date));
 
         const dailyTotals = await Expense.aggregate([
