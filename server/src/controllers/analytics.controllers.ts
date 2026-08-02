@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 
 import Expense from "../models/Expense.models";
 import Budget from "../models/Budget.models";
+import { getIndianHolidays } from "../data/indianHolidays";
 
 // ===================== MOVED FROM expense.controllers.ts =====================
 
@@ -541,19 +542,27 @@ export const getHolidaySpendingComparison = async (
         const year = Number(req.query.year) || new Date().getFullYear();
         const countryCode = (req.query.countryCode as string) || "US";
 
-        const holidayResponse = await fetch(
-            `https://date.nager.at/api/v3/PublicHolidays/${year}/${countryCode}`,
-        );
+        let holidayDates: Set<string>;
 
-        if (!holidayResponse.ok) {
-            res.status(502).json({
-                message: "Couldn't fetch holiday data. Try a different country code.",
-            });
-            return;
+        if (countryCode === "IN") {
+            // Nager.Date doesn't cover India — use our own static list instead.
+            const holidays = getIndianHolidays(year);
+            holidayDates = new Set(holidays.map((h) => h.date));
+        } else {
+            const holidayResponse = await fetch(
+                `https://date.nager.at/api/v3/PublicHolidays/${year}/${countryCode}`,
+            );
+
+            if (!holidayResponse.ok) {
+                res.status(502).json({
+                    message: "Couldn't fetch holiday data. Try a different country code.",
+                });
+                return;
+            }
+
+            const holidays = (await holidayResponse.json()) as { date: string; }[];
+            holidayDates = new Set(holidays.map((h) => h.date));
         }
-
-        const holidays = (await holidayResponse.json()) as { date: string; }[];
-        const holidayDates = new Set(holidays.map((h) => h.date));
 
         const dailyTotals = await Expense.aggregate([
             {

@@ -9,6 +9,7 @@ export const ROUTES = {
 	SAVINGS_GOALS: "/savings-goals",
 	ANALYTICS: "/analytics",
 	PROFILE: "/profile",
+	SETTINGS:"/settings",
 	LINKEDIN: "https://www.linkedin.com/in/sandeshdubeyy/",
 	GITHUB: "https://github.com/sandeshdubeyy"
 };

@@ -67,7 +67,7 @@ const CategorySpendingChart = () => {
 
     return (
         <PieChartCard
-            title="Category Spending"
+            title="Category Wise Spending Pie Chart"
             data={data}
             className="h-[360px]"
         />

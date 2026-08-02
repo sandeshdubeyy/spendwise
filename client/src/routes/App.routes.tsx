@@ -12,6 +12,8 @@ import Categories from "../pages/private/Category/Categories";
 import Budgets from "../pages/private/Budgets/Budgets";
 import SavingsGoals from "../pages/private/SavingGoals/SavingsGoals";
 import Analytics from "../pages/private/Analytics/Analytics";
+import Profile from "../pages/private/Profile/Profile";
+import Settings from "../pages/private/Settings/Settings";
 
 const AppRoutes = () => {
     return (
@@ -55,6 +57,8 @@ const AppRoutes = () => {
                     <Route path={ROUTES.ANALYTICS} element={<Analytics />} />
                     {/* Add more private pages here later */}
                 </Route>
+                    <Route path={ROUTES.PROFILE} element={<Profile />} />
+                    <Route path={ROUTES.SETTINGS} element={<Settings />} />
 
             </Route>
 

@@ -20,7 +20,7 @@ const navItems = [
   { label: "Budgets", to: ROUTES.BUDGETS, icon: Target },
   { label: "Savings", to: ROUTES.SAVINGS_GOALS, icon: PieChart },
   { label: "Analytics", to: ROUTES.ANALYTICS, icon: PieChart },
-  { label: "Settings", to: ROUTES.PROFILE, icon: Settings },
+  { label: "Settings", to: ROUTES.SETTINGS, icon: Settings },
 ];
 
 const Sidebar = () => {

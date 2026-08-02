@@ -41,7 +41,7 @@ const BudgetVsActualCard = () => {
     return (
       <Card>
         <CardHeader>
-          <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Budget vs Actual</h3>
+          <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Compare Budget With Actual Spending</h3>
         </CardHeader>
         <CardBody>
           <div className="space-y-3">
@@ -58,7 +58,7 @@ const BudgetVsActualCard = () => {
     return (
       <Card>
         <CardHeader>
-          <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Budget vs Actual</h3>
+          <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Compare Budget With Actual Spending</h3>
         </CardHeader>
         <CardBody>
           <p className={cn("text-sm", COLORS.danger)}>{error}</p>
@@ -70,7 +70,7 @@ const BudgetVsActualCard = () => {
   return (
     <Card>
       <CardHeader>
-        <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Budget vs Actual</h3>
+        <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Compare Budget With Actual Spending</h3>
       </CardHeader>
 
       <CardBody>

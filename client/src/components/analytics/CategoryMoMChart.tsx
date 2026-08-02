@@ -49,7 +49,7 @@ const CategoryMoMChart = () => {
         return (
             <Card>
                 <CardHeader>
-                    <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Category MoM Change</h3>
+                    <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Category Spending Changes Compared To Last Month</h3>
                 </CardHeader>
                 <CardBody>
                     <div className="h-72 animate-pulse rounded bg-slate-200 dark:bg-slate-800" />
@@ -62,7 +62,7 @@ const CategoryMoMChart = () => {
         return (
             <Card>
                 <CardHeader>
-                    <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Category MoM Change</h3>
+                    <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Category Spending Changes Compared To Last Month</h3>
                 </CardHeader>
                 <CardBody>
                     <p className={cn("text-sm", COLORS.danger)}>{error}</p>
@@ -74,7 +74,7 @@ const CategoryMoMChart = () => {
     return (
         <Card>
             <CardHeader>
-                <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Category Month-over-Month Change</h3>
+                <h3 className={cn("text-base font-semibold", COLORS.textPrimary)}>Category Spending Changes Compared To Last Month</h3>
             </CardHeader>
 
             <CardBody>

@@ -48,7 +48,7 @@ export const getExpenses = async (
         if (!search || typeof search !== "string" || !search.trim()) {
             const expenses = await Expense.find(matchStage)
                 .populate("category")
-                .sort({ date: -1 });
+                .sort({ date: -1, createdAt: -1 });
 
             res.status(200).json({
                 expenses,
@@ -87,6 +87,7 @@ export const getExpenses = async (
             {
                 $sort: {
                     date: -1,
+                    createdAt: -1,
                 },
             },
         ]);
@@ -417,7 +418,7 @@ export const getRecentTransactions = async (
             user,
         })
             .populate("category")
-            .sort({ date: -1 })
+            .sort({ date: -1, createdAt: -1 })
             .limit(5);
 
         res.status(200).json({
