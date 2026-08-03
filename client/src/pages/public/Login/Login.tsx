@@ -14,8 +14,8 @@ import { COLORS } from "../../../constants/colors";
 import { ROUTES } from "../../../constants/routes";
 import { useAuth } from "../../../context/Auth.context";
 
-import lightAuth from "../../../assets/images/lightAuth.png"
-import darkAuth from "../../../assets/images/darkAuth.png"
+import lightAuth from "../../../assets/images/lightAuth.png";
+import darkAuth from "../../../assets/images/darkAuth.png";
 
 type LoginFormValues = {
     email: string;
@@ -59,10 +59,10 @@ const Login = () => {
     };
 
     return (
-        <div className={cn("min-h-screen", COLORS.pageBg)}>
-            <div className="mx-auto flex min-h-screen max-w-7xl justify-center px-4 py-10 sm:px-6 lg:px-8">
-                <div className="grid w-full overflow-hidden rounded-[32px] border shadow-[0_30px_80px_-35px_rgba(0,0,0,0.35)] lg:grid-cols-[1.05fr_0.95fr]">
-                    <div className="flex items-center justify-center bg-white/90 px-6 py-10 sm:px-8 lg:px-12 dark:bg-slate-950/90">
+        <div className={cn("h-screen overflow-y-auto scrollbar-hide sm:z-10", COLORS.pageBg)}>
+            <div className="mx-auto flex min-h-screen max-w-7xl justify-center px-4 py-10 sm:px-6 lg:px-8 sm:z-9">
+                <div className="grid w-full rounded-[32px] border shadow-[0_30px_80px_-35px_rgba(0,0,0,0.35)] lg:grid-cols-[1.05fr_0.95fr] lg:overflow-hidden sm:z-8">
+                    <div className="flex items-center justify-center rounded-[32px] bg-white/90 px-6 py-10 sm:px-8 lg:px-12 dark:bg-slate-950/90 sm:z-6">
                         <div className="w-full max-w-md">
                             <div className="mb-7 flex-col">
                                 <p
@@ -73,23 +73,23 @@ const Login = () => {
                                 >
                                     Login into your account
                                 </p>
-                                <p
+                                <div
                                     className={cn(
-                                        "text-1xl mt-4 flex text-xl font-bold sm:text-2xl",
+                                        "mt-4 flex flex-col gap-3 text-xl font-bold sm:flex-row sm:items-center sm:gap-4 sm:text-2xl",
                                         COLORS.textBrand
                                     )}
                                 >
-                                    Dont have an account?
+                                    <span>Dont have an account?</span>
                                     <Link
                                         to={ROUTES.REGISTER}
                                         className={cn(
-                                            "ml-4 rounded-lg px-5 py-2 text-sm font-medium text-white transition-colors duration-200",
+                                            "inline-flex w-fit rounded-lg px-5 py-2 text-sm font-medium text-white transition-colors duration-200",
                                             COLORS.primaryBtn
                                         )}
                                     >
                                         Register now!
                                     </Link>
-                                </p>
+                                </div>
                                 <p
                                     className={cn(
                                         "mt-1 text-sm leading-7",
@@ -100,7 +100,7 @@ const Login = () => {
                                 </p>
                             </div>
 
-                            <Card className="w-100 rounded-none border-none bg-transparent p-0 shadow-none">
+                            <Card className="w-full rounded-none border-none bg-transparent p-0 shadow-none">
                                 <form
                                     onSubmit={handleSubmit(onSubmit)}
                                     className="space-y-5 dark:bg-slate-950/90"

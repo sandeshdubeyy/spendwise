@@ -33,9 +33,9 @@ const Footer = () => {
 						</h3>
 						<ul className="space-y-3 text-sm">
 							<li>
-								<Link to={ROUTES.HOME} className={COLORS.textSecondary}>
+								<a href="#featuresFlow" className={COLORS.textSecondary}>
 									Features
-								</Link>
+								</a>
 							</li>
 							<li>
 								<Link to={ROUTES.REGISTER} className={COLORS.textSecondary}>

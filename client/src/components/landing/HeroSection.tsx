@@ -21,7 +21,7 @@ const HeroSection = () => {
             <BackgroundGlowBlueTopToBottom className="left-1/2 top-[-4rem] h-[16rem] w-[72%] opacity-60" />
 
             <Container className="relative z-10">
-                <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+                <div className="grid items-center gap-6 lg:grid-cols-2 lg:gap-4 md:gap-20">
                     <div className="space-y-6">
                         <p className={cn("text-sm font-semibold uppercase tracking-[0.3em]", COLORS.income)}>
                             Smart money, made simple
@@ -47,24 +47,21 @@ const HeroSection = () => {
                         </div>
                     </div>
 
-                    <div className="relative mx-auto w-full max-w-xl lg:max-w-none">
+                    <div className="relative mx-auto w-full lg:max-w-none">
                         <div
                             className={cn(
-                                "relative aspect-[16/10] w-full overflow-hidden rounded-[32px] border-2 border-dashed",
-                                COLORS.mockupBorder,
-                                COLORS.mockupBg
+                                "relative aspect-[16/10] w-full overflow-hidden rounded-[32px]",
+                                
                             )}
                         >
-                            <div className="flex h-full items-center justify-center">
-                                <img src={laptopMockup} alt="laptopImage" className="h-full w-full"/>
+                            <div className="flex h-full items-center justify-center ">
+                                <img src={laptopMockup} alt="laptopImage" className="h-full w-full " />
                             </div>
                         </div>
 
                         <div
                             className={cn(
-                                "absolute -bottom-6 -right-2 hidden h-[260px] w-[150px] overflow-hidden rounded-[28px] border-2 border-dashed md:block",
-                                COLORS.mockupBorder,
-                                COLORS.cardBg
+                                "absolute -bottom-6 -right-2 hidden h-[280px] w-[150px] overflow-hidden rounded-[28px] md:block",
                             )}
                         >
                             <img src={mobileMockup} alt="" className="h-full w-full" />

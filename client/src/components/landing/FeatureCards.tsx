@@ -29,7 +29,7 @@ const featureItems = [
 
 const FeatureCards = () => {
     return (
-        <section className={cn("py-16 md:py-24", COLORS.pageBg)}>
+        <section className={cn("py-16 md:pb-24 sm:pb-24", COLORS.pageBg)}>
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
                 <div className="mb-10 text-center">
                     <p className={cn("text-sm font-semibold uppercase tracking-[0.3em]", COLORS.income)}>

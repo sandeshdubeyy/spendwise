@@ -28,15 +28,15 @@ const Navbar = () => {
                 </div>
 
                 <div className="hidden items-center gap-8 md:flex">
-                    <Link
-                        to="/"
+                    <a
+                        href="#featuresFlow"
                         className={cn(
                             "text-sm font-medium transition-colors duration-200",
                             COLORS.link
                         )}
                     >
                         Features
-                    </Link>
+                    </a>
 
                     <Link
                         to="/"

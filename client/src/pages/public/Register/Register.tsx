@@ -57,10 +57,10 @@ const Register = () => {
     };
 
     return (
-        <div className={cn("min-h-screen", COLORS.pageBg)}>
+        <div className={cn("h-screen overflow-y-auto scrollbar-hide", COLORS.pageBg)}>
             <div className="mx-auto flex min-h-screen max-w-7xl justify-center px-4 py-10 sm:px-6 lg:px-8">
-                <div className="grid w-full overflow-hidden rounded-[32px] border shadow-[0_30px_80px_-35px_rgba(0,0,0,0.35)] lg:grid-cols-[1.05fr_0.95fr]">
-                    <div className="flex items-center justify-center bg-white/90 px-6 py-10 sm:px-8 lg:px-12 dark:bg-slate-950/90">
+                <div className="grid w-full rounded-[32px] border shadow-[0_30px_80px_-35px_rgba(0,0,0,0.35)] lg:grid-cols-[1.05fr_0.95fr] lg:overflow-hidden">
+                    <div className="flex items-center justify-center rounded-[32px] bg-white/90 px-6 py-10 sm:px-8 lg:px-12 dark:bg-slate-950/90">
                         <div className="w-full max-w-md">
                             <div className="mb-8 flex-col">
                                 <p
@@ -90,7 +90,7 @@ const Register = () => {
                                 </p>
                             </div>
 
-                            <Card className="w-100 rounded-none border-none bg-transparent p-0 shadow-none">
+                            <Card className="w-full rounded-none border-none bg-transparent p-0 shadow-none">
                                 <form
                                     onSubmit={handleSubmit(onSubmit)}
                                     className="space-y-5 dark:bg-slate-950/90"

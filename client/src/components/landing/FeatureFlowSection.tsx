@@ -2,7 +2,6 @@ import {
     ArrowRight,
     BarChart3,
     Layers3,
-    PiggyBank,
     ReceiptText,
     Sparkles,
     Target,
@@ -52,7 +51,7 @@ const featureNodes = [
 
 const FeatureFlowSection = () => {
     return (
-        <section className={cn("relative overflow-hidden py-20 md:py-24", COLORS.pageBg)}>
+        <section id="featuresFlow" className={cn("relative overflow-hidden py-20 md:py-24", COLORS.pageBg)}>
             <div aria-hidden="true" className="pointer-events-none absolute inset-0">
                 <div className="absolute left-1/2 top-10 h-72 w-40 -translate-x-1/2 rounded-full bg-gradient-to-br from-green-200/50 to-green-400/10 blur-3xl dark:from-blue-900/30 dark:to-blue-400/10" />
                 <div className="absolute bottom-25 right-6 h-64 w-64 rounded-full bg-gradient-to-br from-[#1e3a8a]/15 to-[#60a5fa]/10 blur-3xl dark:from-blue-700/20 dark:to-cyan-400/10" />
