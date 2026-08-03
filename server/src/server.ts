@@ -1,8 +1,11 @@
-import express, { Application } from "express";
+import express,{Application} from "express";
 import dotenv from "dotenv";
 import cors from "cors";
+import User from "./models/User.models";
 
 import connectDB from "./configs/db.configs";
+
+//import routers
 import authRouter from "./routes/auth.routes";
 import categoryRouter from "./routes/category.routes";
 import expenseRouter from "./routes/expense.routes";
@@ -30,4 +33,7 @@ app.use("/api/budgets", budgetRouter);
 app.use("/api/saving-goal", savingGoalRouter);
 app.use("/api/analytics", analyticsRouter);
 
-export default app;
+const PORT = process.env.PORT
+app.listen(PORT,()=>{
+    console.log(`Server is running at ${PORT}`);
+})
