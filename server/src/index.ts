@@ -2,13 +2,13 @@ import express, { Application } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
-import connectDB from "../src/configs/db.configs";
-import authRouter from "../src/routes/auth.routes";
-import categoryRouter from "../src/routes/category.routes";
-import expenseRouter from "../src/routes/expense.routes";
-import budgetRouter from "../src/routes/budget.routes";
-import savingGoalRouter from "../src/routes/savingGoal.routes";
-import analyticsRouter from "../src/routes/analytics.routes";
+import connectDB from "./configs/db.configs";
+import authRouter from "./routes/auth.routes";
+import categoryRouter from "./routes/category.routes";
+import expenseRouter from "./routes/expense.routes";
+import budgetRouter from "./routes/budget.routes";
+import savingGoalRouter from "./routes/savingGoal.routes";
+import analyticsRouter from "./routes/analytics.routes";
 
 dotenv.config();
 
