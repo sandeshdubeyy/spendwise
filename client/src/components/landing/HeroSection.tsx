@@ -11,8 +11,8 @@ import {
     BackgroundGlowGreenTopToBottom,
 } from "../common/BackgroundGlow";
 
-// import laptopMockup from "../../assets/images/laptop-mockup.png";
-// import mobileMockup from "../../assets/images/mobile-mockup.png";
+import laptopMockup from "../../assets/images/laptop-mockup.png";
+import mobileMockup from "../../assets/images/mobile-mockup.png";
 
 const HeroSection = () => {
     return (
@@ -56,22 +56,18 @@ const HeroSection = () => {
                             )}
                         >
                             <div className="flex h-full items-center justify-center">
-                                <p className={cn("text-sm", COLORS.textMuted)}>
-                                    Laptop mockup — drop image here
-                                </p>
+                                <img src={laptopMockup} alt="laptopImage" className="h-full w-full"/>
                             </div>
                         </div>
 
                         <div
                             className={cn(
-                                "absolute -bottom-6 -right-2 hidden h-[260px] min-w-[140px] overflow-hidden rounded-[28px] border-2 border-dashed md:block",
+                                "absolute -bottom-6 -right-2 hidden h-[260px] w-[150px] overflow-hidden rounded-[28px] border-2 border-dashed md:block",
                                 COLORS.mockupBorder,
                                 COLORS.cardBg
                             )}
                         >
-                            <div className="flex h-full items-center justify-center px-2 text-center text-xs">
-                                <p className={COLORS.textMuted}>Mobile mockup</p>
-                            </div>
+                            <img src={mobileMockup} alt="" className="h-full w-full" />
                         </div>
 
                         <div

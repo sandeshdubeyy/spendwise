@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import axios from "axios";
 import toast from "react-hot-toast";
+import { useTheme } from "../../../context/Theme.context";
 
 import Button from "../../../components/common/Button";
 import Input from "../../../components/common/Input";
@@ -13,6 +14,10 @@ import { COLORS } from "../../../constants/colors";
 import { ROUTES } from "../../../constants/routes";
 import { useAuth } from "../../../context/Auth.context";
 
+import lightAuth from "../../../assets/images/lightAuth.png";
+import darkAuth from "../../../assets/images/darkAuth.png";
+
+
 type RegisterFormValues = {
     name: string;
     email: string;
@@ -20,6 +25,7 @@ type RegisterFormValues = {
 };
 
 const Register = () => {
+    const { theme } = useTheme();
     const [showPassword, setShowPassword] = useState(false);
     const { register: registerUser } = useAuth();
     const navigate = useNavigate();
@@ -182,35 +188,13 @@ const Register = () => {
 
                     <div className="relative hidden min-h-[420px] items-center justify-center overflow-hidden bg-slate-100 p-4 lg:flex dark:bg-slate-900">
                         <div className="absolute inset-0 rounded-[32px] b" />
-                        <div className="relative z-10 flex h-full w-full items-center justify-center rounded-[24px] border border-dashed border-slate-300 bg-white/60 p-6 text-center shadow-inner dark:border-slate-700 dark:bg-slate-800/60">
-                            <div className="max-w-sm">
-                                <p
-                                    className={cn(
-                                        "text-sm font-semibold uppercase tracking-[0.3em]",
-                                        COLORS.income
-                                    )}
-                                >
-                                    Your finance hub
-                                </p>
-                                <h2
-                                    className={cn(
-                                        "mt-3 text-2xl font-semibold",
-                                        COLORS.textBrand
-                                    )}
-                                >
-                                    A clean place to manage budgets, expenses,
-                                    and goals.
-                                </h2>
-                                <p
-                                    className={cn(
-                                        "mt-3 text-sm leading-7",
-                                        COLORS.textSecondary
-                                    )}
-                                >
-                                    Add your own image here later. This space is
-                                    intentionally left for your screenshot or
-                                    mockup.
-                                </p>
+                        <div className="relative z-10 flex h-full w-full items-center justify-center rounded-[24px] border border-dashed border-slate-300 bg-white/60 text-center shadow-inner dark:border-slate-700 dark:bg-slate-800/60">
+                            <div className="h-full w-full">
+                                <img
+                                    src={theme === "dark" ? darkAuth : lightAuth}
+                                    alt="image"
+                                    className="h-full w-full rounded-3xl"
+                                />
                             </div>
                         </div>
                     </div>

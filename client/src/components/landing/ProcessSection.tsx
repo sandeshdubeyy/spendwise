@@ -1,38 +1,54 @@
 import { cn } from "../../utils/cn";
 import { COLORS } from "../../constants/colors";
+import { useTheme } from "../../context/Theme.context";
+
+import image1 from '../../assets/images/img-1.png';
+import image2 from '../../assets/images/img-2.png';
+import image3 from '../../assets/images/img-3.png';
+import image4 from '../../assets/images/img-4.png';
+import image1d from '../../assets/images/img-d-1.png';
+import image2d from '../../assets/images/img-d-2.png';
+import image3d from '../../assets/images/img-d-3.png';
+import image4d from '../../assets/images/img-d-4.png';
+
 
 const steps = [
     {
         step: 1,
         title: "Plan your budgets",
-        description:
-            "Create budgets for every category and keep your spending aligned with what matters most.",
+        description: "Create budgets for every category ...",
         position: "left",
+        image: image1,
+        darkImage: image1d,
     },
     {
         step: 2,
         title: "Track every expense",
-        description:
-            "Capture spending details and see how every transaction contributes to your cash flow.",
+        description: "Capture spending details ...",
         position: "right",
+        image: image2,
+        darkImage: image2d,
     },
     {
         step: 3,
         title: "Grow your savings",
-        description:
-            "Set savings goals, watch progress build, and keep your future plans within reach.",
+        description: "Set savings goals ...",
         position: "left",
+        image: image3,
+        darkImage: image3d,
     },
     {
         step: 4,
         title: "Analyze your money",
-        description:
-            "Use dashboard insights to spot trends, compare categories, and make smarter money moves.",
+        description: "Use dashboard insights ...",
         position: "right",
+        image: image4,
+        darkImage: image4d,
     },
 ];
 
 const ProcessSection = () => {
+    const { theme } = useTheme();
     return (
         <section className={cn("py-16 md:py-24", COLORS.pageBg)}>
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
@@ -80,14 +96,13 @@ const ProcessSection = () => {
                                         </div>
 
                                         <div className="flex min-h-[280px] items-center justify-center overflow-hidden rounded-[28px] border border-slate-200 bg-slate-950/5 shadow-[0_24px_80px_-40px_rgba(0,0,0,0.45)] dark:border-slate-700 dark:bg-slate-900">
-                                            <div className="flex h-full w-full items-center justify-center px-4 text-center text-sm text-slate-500 dark:text-slate-400">
-                                                <div className="w-full">
-                                                    <p className="mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
-                                                        Image placeholder
-                                                    </p>
-                                                    <p className="text-xs">
-                                                        Add your screenshot or mockup here for step {item.step}
-                                                    </p>
+                                            <div className="flex h-full w-full items-center justify-center text-center text-sm text-slate-500 dark:text-slate-400">
+                                                <div className="w-full h-full">
+                                                    <img
+                                                        src={theme === "dark" ? item.darkImage : item.image}
+                                                        alt={`Step ${item.step}`}
+                                                        className="h-full w-full"
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
@@ -95,14 +110,13 @@ const ProcessSection = () => {
                                 ) : (
                                     <>
                                         <div className="flex min-h-[280px] items-center justify-center overflow-hidden rounded-[28px] border border-slate-200 bg-slate-950/5 shadow-[0_24px_80px_-40px_rgba(0,0,0,0.45)] dark:border-slate-700 dark:bg-slate-900">
-                                            <div className="flex h-full w-full items-center justify-center px-4 text-center text-sm text-slate-500 dark:text-slate-400">
-                                                <div className="w-full">
-                                                    <p className="mb-2 text-sm font-semibold text-slate-700 dark:text-slate-200">
-                                                        Image placeholder
-                                                    </p>
-                                                    <p className="text-xs">
-                                                        Add your screenshot or mockup here for step {item.step}
-                                                    </p>
+                                            <div className="flex h-full w-full items-center justify-center text-center text-sm text-slate-500 dark:text-slate-400">
+                                                <div className="w-full h-full">
+                                                    <img
+                                                        src={theme === "dark" ? item.darkImage : item.image}
+                                                        alt={`Step ${item.step}`}
+                                                        className="h-full w-full object-cover"
+                                                    />
                                                 </div>
                                             </div>
                                         </div>
