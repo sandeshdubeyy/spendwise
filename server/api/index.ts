@@ -14,10 +14,19 @@ dotenv.config();
 
 const app: Application = express();
 
-connectDB();
-
 app.use(cors());
 app.use(express.json());
+
+app.use(async (req, res, next) => {
+    try {
+        await connectDB();
+        next();
+    } catch (error) {
+        res.status(500).json({
+            message: "Couldn't connect to the database. Please try again.",
+        });
+    }
+});
 
 app.get("/", (req, res) => {
     res.send("SpendWise API");
