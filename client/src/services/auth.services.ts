@@ -7,7 +7,7 @@ export type AuthUser = {
 };
 
 export const getCurrentUser = async () => {
-    const { data } = await api.get<{ user: AuthUser; }>("api/auth/me");
+    const { data } = await api.get<{ user: AuthUser; }>("/auth/me");
     return data.user;
 };
 
