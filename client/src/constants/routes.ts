@@ -8,7 +8,8 @@ export const ROUTES = {
 	BUDGETS: "/budgets",
 	SAVINGS_GOALS: "/savings-goals",
 	ANALYTICS: "/analytics",
-	PROFILE: "/profile",
+	PROFILE: "/me",
+	UPDATEPROFILE:"/profile",
 	SETTINGS:"/settings",
 	LINKEDIN: "https://www.linkedin.com/in/sandeshdubeyy/",
 	GITHUB: "https://github.com/sandeshdubeyy"
